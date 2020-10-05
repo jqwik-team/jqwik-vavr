@@ -15,7 +15,7 @@
         <developer>
             <name>Benno Müller</name>
             <email>software@befrish.de</email>
-            <organization>Befrish</organization>
+            <organization>Befrish Software</organization>
             <organizationUrl>https://github.com/Befrish</organizationUrl>
         </developer>
     </developers>
@@ -28,10 +28,9 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git://github.com/Befrish/jqwik-vavr.git</connection>
-        <developerConnection>scm:git:git@github.com:Befrish/jqwik-vavr.git</developerConnection>
-        <url>https://github.com/Befrish/jqwik-vavr</url>
-        <tag>HEAD</tag>
+        <url>https://github.com/Befrish/${project.artifactId}</url>
+        <connection>scm:git:git://github.com/Befrish/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:git@github.com:Befrish/${project.artifactId}.git</developerConnection>
     </scm>
 
     <properties>

@@ -22,15 +22,15 @@ More collections and data structures will be implemented in later versions. In V
 
 ToDo examples
 
-```
+```java
 @Property
 void generateDistinctLists(@ForAll final List<@Unique Integer> list) {
     assertThat(list.distinct().size(), is(list.size()));
 }
 ```
 
-```
- @Provide
+```java
+@Provide
 Arbitrary<List<Integer>> integersMin3() {
     return VavrArbitraries.list(Arbitraries.integers()).ofMinSize(3);
 }
@@ -50,7 +50,7 @@ void generateSizableListFrom(@ForAll @From("integersMin3") final List<Integer> l
 The repository is not available now until there is one released version.
 ---
 
-```
+```xml
 <repositories>
   <repository>
     <id>github-jqwik-vavr</id>
@@ -60,7 +60,7 @@ The repository is not available now until there is one released version.
 </repositories>
 ```
 
-```
+```xml
 <dependency>
     <groupId>de.befrish.jqwik</groupId>
     <artifactId>jqwik-vavr</artifactId>

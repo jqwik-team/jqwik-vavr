@@ -13,10 +13,7 @@ Adds [jqwik](https://jqwik.net/) arbitraries for [Vavr](https://www.vavr.io/vavr
 - io.vavr.control.*
 -->
 
----
-**NOTE**
-More collections and data structures will be implemented in later versions. In Version 1.0.0 should all data structures. 
----
+_More collections and data structures will be implemented in later versions. In Version 1.0.0 should all data structures._
 
 ## Usage
 
@@ -44,11 +41,6 @@ void generateSizableListFrom(@ForAll @From("integersMin3") final List<Integer> l
 ## Installation
 
 ### Maven
-
----
-**WARNING**
-The repository is not available now until there is one released version.
----
 
 ```xml
 <repositories>

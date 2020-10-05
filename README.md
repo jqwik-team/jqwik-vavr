@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Befrish/jqwik-vavr.svg?branch=main)](https://travis-ci.com/Befrish/jqwik-vavr)
+
 # Vavr support for jqwik
 
 Adds [jqwik](https://jqwik.net/) arbitraries for [Vavr](https://www.vavr.io/vavr-docs/) data structures:

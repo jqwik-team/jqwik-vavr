@@ -7,7 +7,7 @@ cache:
   directories:
     - $HOME/.m2
 
-before_deploy: org.codehaus.mojo:versions-maven-plugin:2.9:set -DnewVersion=$TRAVIS_TAG
+before_deploy: mvn org.codehaus.mojo:versions-maven-plugin:2.9:set -DnewVersion=$TRAVIS_TAG
 deploy:
   provider: releases
   api_key:

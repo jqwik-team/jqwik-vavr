@@ -1,3 +1,4 @@
+# Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -7,5 +8,30 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+
+# Eclipse project files
+.project
+.settings
+.classpath
+.externalToolBuilders
+.springBeans
+.metadata
+
+# IntelliJ project files
+.idea
+*.iml
+
+# NetBeans project files
+nb-configuration*.xml
+nbactions*.xml
+
+# Logging files
+*.log
+
+# Logging files
+*.log
+
+# Test
+.jqwik-database
+.attach_pid*

@@ -149,11 +149,6 @@
                                 </goals>
                                 <configuration>
                                     <rules>
-                                        <requireMavenVersion>
-                                            <version>[3.6.1,)</version>
-                                            <message>Please update maven</message>
-                                        </requireMavenVersion>
-
                                         <requireUpperBoundDeps/>
 
                                         <banDuplicatePomDependencyVersions>

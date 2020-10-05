@@ -6,5 +6,5 @@ if [ -z "$1" ]
     exit 1
 fi
 
-git tag -d 0.0.1
-git push origin --delete 0.0.1
+git tag -d $1
+git push origin --delete $1

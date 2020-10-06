@@ -6,7 +6,7 @@
 
     <groupId>de.befrish.jqwik</groupId>
     <artifactId>jqwik-vavr</artifactId>
-    <version>0.0.9-SNAPSHOT</version>
+    <version>0.0.10-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <url>https://github.com/Befrish/jqwik-vavr</url>

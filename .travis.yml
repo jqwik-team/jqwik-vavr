@@ -22,3 +22,5 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+after_deploy:
+  - mvn deploy -Dregistry=https://maven.pkg.github.com/Befrish/jqwik-vavr -Dtoken=GITHUB_TOKEN

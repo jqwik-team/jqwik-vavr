@@ -35,3 +35,6 @@ nbactions*.xml
 # Test
 .jqwik-database
 .attach_pid*
+
+# Release
+.release_notes_*.txt

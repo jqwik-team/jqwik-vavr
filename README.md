@@ -56,6 +56,6 @@ void generateSizableListFrom(@ForAll @From("integersMin3") final List<Integer> l
 <dependency>
     <groupId>de.befrish.jqwik</groupId>
     <artifactId>jqwik-vavr</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.7</version>
 </dependency>
 ```

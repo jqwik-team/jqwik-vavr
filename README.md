@@ -41,22 +41,4 @@ void generateSizableListFrom(@ForAll @From("integersMin3") final List<Integer> l
 
 ## Installation
 
-### Maven
-
-```xml
-<repositories>
-  <repository>
-    <id>github-jqwik-vavr</id>
-    <name>jqwik Vavr Packages</name>
-    <url>https://maven.pkg.github.com/Befrish/jqwik-vavr</url>
-  </repository>
-</repositories>
-```
-
-```xml
-<dependency>
-    <groupId>de.befrish.jqwik</groupId>
-    <artifactId>jqwik-vavr</artifactId>
-    <version>0.0.8</version>
-</dependency>
-```
+see [GitHub Packages](https://github.com/users/Befrish/packages?repo_name=jqwik-vavr)

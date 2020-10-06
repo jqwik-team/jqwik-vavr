@@ -28,4 +28,3 @@ git ls-files --modified | grep 'pom\.xml$' | xargs git add
 git commit -m "[INTERNAL] Update development version to $development_version"
 
 echo "Please commit and push the change with 'git push origin' and update release notes in GitHub!"
-echo "Please update version on README.md!"

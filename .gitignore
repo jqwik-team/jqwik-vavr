@@ -29,9 +29,6 @@ nbactions*.xml
 # Logging files
 *.log
 
-# Logging files
-*.log
-
 # Test
 .jqwik-database
 .attach_pid*

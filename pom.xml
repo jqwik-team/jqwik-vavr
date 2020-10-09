@@ -29,7 +29,7 @@
     </licenses>
     <scm>
         <url>https://github.com/Befrish/${project.artifactId}</url>
-        <connection>scm:git:git://github.com/Befrish/${project.artifactId}.git</connection>
+        <connection>scm:git:git@github.com:Befrish/${project.artifactId}.git</connection>
         <developerConnection>scm:git:git@github.com:Befrish/${project.artifactId}.git</developerConnection>
         <tag>HEAD</tag>
     </scm>

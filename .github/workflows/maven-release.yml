@@ -38,7 +38,7 @@ jobs:
       run: mvn -B -V org.codehaus.mojo:versions-maven-plugin:2.5:set -DnewVersion=${{ github.event.inputs.release-version }} org.codehaus.mojo:versions-maven-plugin:2.5:commit
 
     - name: Build with Maven
-      run: mvn -B -V package --file pom.xml -DskipTests -DskipITs
+      run: mvn -B -V package --file pom.xml -DskipTests -DskipITs -Dchecks.skip=true
 
 
     - name: Create Release
@@ -80,7 +80,7 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -Pdeploy-github
+      run: mvn deploy -Pdeploy-github -Dchecks.skip=true -DskipTests -DskipITs -Dmaven.javadoc.skip=true
       env:
         GITHUB_TOKEN: ${{ github.token }}
         
@@ -93,7 +93,7 @@ jobs:
         server-password: REPSY_PASSWORD # env variable for password in deploy
 
     - name: Publish to Maven Repository on Repsy
-      run: mvn deploy -Pdeploy-repsy
+      run: mvn deploy -Pdeploy-repsy -Dchecks.skip=true -DskipTests -DskipITs -Dmaven.javadoc.skip=true
       env:
         REPSY_USERNAME: ${{ secrets.REPSY_USERNAME }}
         REPSY_PASSWORD: ${{ secrets.REPSY_PASSWORD }}

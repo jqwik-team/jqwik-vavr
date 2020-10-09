@@ -34,5 +34,5 @@ jobs:
 
     - name: Publish to Maven Repositoty on Repsy
       run: mvn deploy -s $GITHUB_WORKSPACE/.deploy.settings.xml
-#      env:
-#        GITHUB_TOKEN: ${{ github.token }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}

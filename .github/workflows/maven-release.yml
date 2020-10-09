@@ -38,11 +38,11 @@ jobs:
       uses: qcastel/github-actions-maven-release@v1.11.2
       with:
         release-branch-name: "master"
-        maven-args: "-Dmaven.javadoc.skip=true -DskipTests -DskipITs -Ddockerfile.skip -DdockerCompose.skip -DdevelopmentVersion=${{ github.event.inputs.release-version }} -DdevelopmentVersion=${{ github.event.inputs.development-version }}-SNAPSHOT"
+        maven-args: "-Dtoken=${{ github.token }} -DdevelopmentVersion=${{ github.event.inputs.release-version }} -DdevelopmentVersion=${{ github.event.inputs.development-version }}-SNAPSHOT -Dmaven.javadoc.skip=true -DskipTests -DskipITs -Ddockerfile.skip -DdockerCompose.skip"
 
         git-release-bot-name: "release-bot"
         git-release-bot-email: "software@befrish.de"
 
-        access-token: ${{ github.token }}
+        #access-token: ${{ github.token }}
       env:
-         GITHUB_ACCESS_TOKEN: ${{ github.token }}
+         GITHUB_ACCESS_TOKEN: ${{ github.actor }} # used for -Dusername

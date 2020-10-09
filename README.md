@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/Befrish/jqwik-vavr.svg?branch=main)](https://travis-ci.com/Befrish/jqwik-vavr)
-![Build Status](https://github.com/Befrish/jqwik-vavr/workflows/build/badge.svg)
-![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https%3A%2F%2Frepo.repsy.io%2Fmvn%2FBefrish%2Fjqwik-vavr%2Fde%2Fbefrish%2Fjqwik%2Fjqwik-vavr)
+[![Build Status](https://github.com/Befrish/jqwik-vavr/workflows/build/badge.svg)](https://github.com/Befrish/jqwik-vavr/actions?query=workflow%3Abuild)
+[![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https%3A%2F%2Frepo.repsy.io%2Fmvn%2FBefrish%2Fjqwik-vavr%2Fde%2Fbefrish%2Fjqwik%2Fjqwik-vavr)](https://repo.repsy.io/mvn/befrish/jqwik-vavr)
 
 # Vavr support for jqwik
 

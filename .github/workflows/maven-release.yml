@@ -40,9 +40,11 @@ jobs:
         release-branch-name: "master"
         maven-args: "-Dtoken=${{ github.token }} -DdevelopmentVersion=${{ github.event.inputs.release-version }} -DdevelopmentVersion=${{ github.event.inputs.development-version }}-SNAPSHOT -Dmaven.javadoc.skip=true -DskipTests -DskipITs -Ddockerfile.skip -DdockerCompose.skip"
 
-        git-release-bot-name: "release-bot"
+        git-release-bot-name: "release"
         git-release-bot-email: "software@befrish.de"
 
-        #access-token: ${{ github.token }}
-      env:
-         GITHUB_ACCESS_TOKEN: ${{ github.actor }} # used for -Dusername
+        maven-repo-server-id: github
+        maven-repo-server-username: ${{ github.actor }}
+        maven-repo-server-password: ${{ github.token }}
+
+        access-token: ${{ github.actor }} # used for -Dusername

@@ -8,19 +8,19 @@ cache:
     - $HOME/.m2
 
 
-before_deploy:
-  - mvn org.codehaus.mojo:versions-maven-plugin:2.5:set -DnewVersion=$TRAVIS_TAG -B -V
-  - mvn org.codehaus.mojo:versions-maven-plugin:2.5:commit -B -V
-  - mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -Dchecks.skip=true -B -V
-deploy:
-  provider: releases
-  api_key:
-    secure: 1B0QLnj4rY8iXV4KDkGahhtwu5AhI4R2ZmcJr52DIb8wLzH2xxaAYl8QAAjvGy/Wl93BP600+UHkLdXy71HAMOv1BbNV7+KfXWkAAffzn0CrWyaa7QBl7HygMAEvQ9fvve9vQoD7BwmZZKE4QpNG9HV0mIJds5nsl+pPeTETGebNir7nHJKBIdWybFw+k+Elrfidb0quWs7PDIAIN2WTDA/cOeZUcQxoSZKp9f8shaBSwiDZhUTD4wREvvEPmCxfJkvp2WiZ++rLLse7cF3Qd1ZbLhvee8XeFNL5kB34W9nQHMDRHQ4Ydo8U2Av4wbqVfSLg5LGP2jfA9kQGVigI7PGbYOag5L8Fs1KTpZrjNsVEVdjaxYBusxqOJ6JLABxCHsxWU3K/8ydB2ya8JBQLCDFeUJv+Ok6+GRtpgHylJvSGRKA/5FfoC7O3olxFMMdkCpm5ww7ZCw8Nm0Uc2DqwRTD/iyHHXdzK8BdzT02yOB9Ajin3g8TU7x8hdjGBhe8+2F36CZaf5atC8jzJrAw8ohJDOVLwLJAHyVqSbbNLw8hukXk2G10z/d9bdmTfExt5GIBTe33yXGyQe7WRZph1+81H8bW96B2R7bHXGM+mgiveRWN0ICnacPKksMBkMqTfp+s4Vl2M3ilt6M4EwwE11iYJnFUE8G5lohN+DKNc2xE=
-  file:
-    - target/jqwik-vavr-$TRAVIS_TAG.jar
-    - target/jqwik-vavr-$TRAVIS_TAG-sources.jar
-  skip_cleanup: true
-  on:
-    tags: true
-after_deploy:
-  - mvn --settings .travis.settings.xml deploy -Dregistry=https://maven.pkg.github.com/Befrish -DskipTests=true -Dmaven.javadoc.skip=true -Dchecks.skip=true -B -V
+#before_deploy:
+#  - mvn org.codehaus.mojo:versions-maven-plugin:2.5:set -DnewVersion=$TRAVIS_TAG -B -V
+#  - mvn org.codehaus.mojo:versions-maven-plugin:2.5:commit -B -V
+#  - mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -Dchecks.skip=true -B -V
+#deploy:
+#  provider: releases
+#  api_key:
+#    secure: 1B0QLnj4rY8iXV4KDkGahhtwu5AhI4R2ZmcJr52DIb8wLzH2xxaAYl8QAAjvGy/Wl93BP600+UHkLdXy71HAMOv1BbNV7+KfXWkAAffzn0CrWyaa7QBl7HygMAEvQ9fvve9vQoD7BwmZZKE4QpNG9HV0mIJds5nsl+pPeTETGebNir7nHJKBIdWybFw+k+Elrfidb0quWs7PDIAIN2WTDA/cOeZUcQxoSZKp9f8shaBSwiDZhUTD4wREvvEPmCxfJkvp2WiZ++rLLse7cF3Qd1ZbLhvee8XeFNL5kB34W9nQHMDRHQ4Ydo8U2Av4wbqVfSLg5LGP2jfA9kQGVigI7PGbYOag5L8Fs1KTpZrjNsVEVdjaxYBusxqOJ6JLABxCHsxWU3K/8ydB2ya8JBQLCDFeUJv+Ok6+GRtpgHylJvSGRKA/5FfoC7O3olxFMMdkCpm5ww7ZCw8Nm0Uc2DqwRTD/iyHHXdzK8BdzT02yOB9Ajin3g8TU7x8hdjGBhe8+2F36CZaf5atC8jzJrAw8ohJDOVLwLJAHyVqSbbNLw8hukXk2G10z/d9bdmTfExt5GIBTe33yXGyQe7WRZph1+81H8bW96B2R7bHXGM+mgiveRWN0ICnacPKksMBkMqTfp+s4Vl2M3ilt6M4EwwE11iYJnFUE8G5lohN+DKNc2xE=
+#  file:
+#    - target/jqwik-vavr-$TRAVIS_TAG.jar
+#    - target/jqwik-vavr-$TRAVIS_TAG-sources.jar
+#  skip_cleanup: true
+#  on:
+#    tags: true
+#after_deploy:
+#  - mvn --settings .travis.settings.xml deploy -Dregistry=https://maven.pkg.github.com/Befrish -DskipTests=true -Dmaven.javadoc.skip=true -Dchecks.skip=true -B -V

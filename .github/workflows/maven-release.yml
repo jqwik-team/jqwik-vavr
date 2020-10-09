@@ -43,8 +43,4 @@ jobs:
         git-release-bot-name: "release"
         git-release-bot-email: "software@befrish.de"
 
-        maven-repo-server-id: github
-        maven-repo-server-username: git
-        maven-repo-server-password: ${{ github.token }}
-
         access-token: git # used for -Dusername

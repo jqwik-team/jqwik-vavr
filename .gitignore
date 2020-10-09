@@ -34,4 +34,4 @@ nbactions*.xml
 .attach_pid*
 
 # Release
-.release_notes_*.txt
+.release_notes.txt

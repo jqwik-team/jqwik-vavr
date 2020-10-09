@@ -41,6 +41,10 @@ jobs:
       run: mvn -B -V package --file pom.xml -DskipTests -DskipITs -Dchecks.skip=true
 
 
+    - name: Generate Changelog
+      run: git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s" -i -E --grep="^\s*(\[FEATURE\]|\[FIX\])]" > .release_notes.txt
+      #run: git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s" -i -E --grep="^\s*(\[INTERNAL\]|\[FEATURE\]|\[FIX\]|\[DOC\])*(\[FEATURE\]|\[FIX\])]" > .release_notes.txt
+
     - name: Create Release
       id: create-release
       uses: actions/create-release@v1
@@ -49,6 +53,7 @@ jobs:
       with:
         tag_name: ${{ github.event.inputs.release-version }}
         release_name: Release ${{ github.event.inputs.release-version }}
+        body_path: .release_notes.txt
 
     - name: Upload Release Asset JAR
       id: upload-release-asset-jar

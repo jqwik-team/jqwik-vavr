@@ -33,7 +33,10 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-          
+
+    - name: Set release version with Maven
+      run: mvn -B -V mvn org.codehaus.mojo:versions-maven-plugin:2.5:set -DnewVersion=${{ github.event.inputs.release-version }} org.codehaus.mojo:versions-maven-plugin:2.5:commit
+
     - name: Build with Maven
       run: mvn -B -V package --file pom.xml -DskipTests -DskipITs
 

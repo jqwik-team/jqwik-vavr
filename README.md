@@ -8,6 +8,8 @@ Adds [jqwik](https://jqwik.net/) arbitraries for [Vavr](https://www.vavr.io/vavr
 - io.vavr.collection.List
 - io.vavr.collection.Set
 
+- io.vavr.Lazy
+
 <!--
 - io.vavr.collection.*
 - io.vavr.concurrent.*

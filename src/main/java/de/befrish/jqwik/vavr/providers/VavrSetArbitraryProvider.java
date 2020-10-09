@@ -12,7 +12,7 @@ import org.kohsuke.MetaInfServices;
  * @author Benno Müller
  */
 @MetaInfServices(ArbitraryProvider.class)
-public class VavrSetArbitraryProvider extends AbstractVavrCollectionArbitraryProvider {
+public class VavrSetArbitraryProvider extends AbstractVavrContainerArbitraryProvider {
 
     @Override
     protected Class<?> getProvidedType() {

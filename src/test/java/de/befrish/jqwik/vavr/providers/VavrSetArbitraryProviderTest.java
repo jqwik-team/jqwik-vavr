@@ -27,33 +27,33 @@ import static org.hamcrest.Matchers.not;
 class VavrSetArbitraryProviderTest {
 
     @Property
-    void generateLists(@ForAll final Set<Integer> set) {
+    void generate(@ForAll final Set<Integer> set) {
         // Test that the ArbitraryProvider works (fails if not found)
     }
 
     @Property
-    void generateDistinctLists(@ForAll final Set<Integer> set) {
+    void generateDistinct(@ForAll final Set<Integer> set) {
         assertThat(set.distinct().size(), is(set.size()));
     }
 
 
     @Property
-    void generateSizableLists(@ForAll @Size(5) final Set<Integer> set) {
+    void generateSizable(@ForAll @Size(5) final Set<Integer> set) {
         assertThat(set.size(), is(5));
     }
 
     @Property
-    void generateNonEmptyLists(@ForAll @NotEmpty final Set<Integer> list) {
+    void generateNonEmpty(@ForAll @NotEmpty final Set<Integer> list) {
         assertThat(list, is(not(emptyIterable())));
     }
 
     @Provide
-    Arbitrary<Set<Integer>> integersMin3() {
+    Arbitrary<Set<Integer>> integersMinSize3() {
         return VavrArbitraries.set(Arbitraries.integers()).ofMinSize(3);
     }
 
     @Property
-    void generateSizableListFromData(@ForAll @From("integersMin3") final Set<Integer> set) {
+    void generateFrom(@ForAll @From("integersMinSize3") final Set<Integer> set) {
         assertThat(set.size(), is(greaterThanOrEqualTo(3)));
     }
 

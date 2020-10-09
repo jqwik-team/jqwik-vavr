@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  *
  * @author Benno Müller
  */
-abstract class AbstractVavrCollectionArbitraryProvider implements ArbitraryProvider {
+abstract class AbstractVavrContainerArbitraryProvider implements ArbitraryProvider {
 
     @Override
     public boolean canProvideFor(final TypeUsage targetType) {
@@ -23,9 +23,9 @@ abstract class AbstractVavrCollectionArbitraryProvider implements ArbitraryProvi
 
     @Override
     public Set<Arbitrary<?>> provideFor(final TypeUsage targetType, final SubtypeProvider subtypeProvider) {
-        final TypeUsage elementType = targetType.getTypeArgument(0);
-        final Set<Arbitrary<?>> elementArbitraries = subtypeProvider.apply(elementType);
-        return elementArbitraries.stream()
+        final TypeUsage innerType = targetType.getTypeArgument(0);
+        final Set<Arbitrary<?>> innerArbitraries = subtypeProvider.apply(innerType);
+        return innerArbitraries.stream()
                 .map(this::create)
                 .collect(Collectors.toSet());
     }

@@ -46,9 +46,9 @@ void generateSizableListFrom(@ForAll @From("integersMin3") final List<Integer> l
 ```xml
 <repositories>
   <repository>
-    <id>github-jqwik-vavr</id>
+    <id>jqwik-vavr</id>
     <name>jqwik Vavr Packages</name>
-    <url>https://maven.pkg.github.com/Befrish/jqwik-vavr</url>
+    <url>https://repo.repsy.io/mvn/befrish/jqwik-vavr</url>
   </repository>
 </repositories>
 ```

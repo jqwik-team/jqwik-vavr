@@ -44,8 +44,8 @@ jobs:
     - name: Generate Changelog
       uses: srt32/git-actions@v0.0.3
       with:
-        args: git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s" -i -E --grep="^\s*(\[FEATURE\]|\[FIX\])]" > .release_notes.txt
-        #args: git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s" -i -E --grep="^\s*(\[INTERNAL\]|\[FEATURE\]|\[FIX\]|\[DOC\])*(\[FEATURE\]|\[FIX\])]" > .release_notes.txt
+        args: "git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:\"%s\" -i -E --grep=\"^\\s*(\\[FEATURE\\]|\\[FIX\\])]\" > .release_notes.txt"
+        #args: "git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:\"%s\" -i -E --grep=\"^\s*(\\[INTERNAL\\]|\\[FEATURE\\]|\\[FIX\\]|\\[DOC\\])*(\\[FEATURE\\]|\\[FIX\\])]" > .release_notes.txt
 
     - name: Create Release
       id: create-release

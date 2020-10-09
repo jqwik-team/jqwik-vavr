@@ -8,17 +8,17 @@ on:
   workflow_dispatch:
     inputs:
       release-version:
-        description: 'Version to be released'
+        description: 'Release version'
         required: true
       development-version:
-        description: 'Next development version (without SNAPSHOT)'
+        description: 'Development version (without SNAPSHOT)'
         required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   release:
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -34,13 +34,73 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
           
-    - name: Release with Maven
-      uses: qcastel/github-actions-maven-release@v1.11.2
+    - name: Build with Maven
+      run: mvn -B -V package --file pom.xml -DskipTests -DskipITs
+
+
+    - name: Create Release
+      id: create-release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }} # This token is provided by Actions, you do not need to create your own token
       with:
-        release-branch-name: "master"
-        maven-args: "-Dtoken=${{ github.token }} -DdevelopmentVersion=${{ github.event.inputs.release-version }} -DdevelopmentVersion=${{ github.event.inputs.development-version }}-SNAPSHOT -Dmaven.javadoc.skip=true -DskipTests -DskipITs -Ddockerfile.skip -DdockerCompose.skip"
+        tag_name: ${{ github.event.inputs.release-version }}
+        release_name: Release ${{ github.event.inputs.release-version }}
 
-        git-release-bot-name: "github-actions"
-        git-release-bot-email: "41898282+github-actions[bot]@users.noreply.github.com"
+    - name: Upload Release Asset JAR
+      id: upload-release-asset-jar
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./target/jqwik-vavr-${{ github.event.inputs.release-version }}.jar
+        asset_name: jqwik-vavr-${{ github.event.inputs.release-version }}.jar
+        asset_content_type: application/java-archive
 
-        access-token: git # used for -Dusername
+    - name: Upload Release Asset Sources JAR
+      id: upload-release-asset-sources-jar
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./target/jqwik-vavr-${{ github.event.inputs.release-version }}-sources.jar
+        asset_name: jqwik-vavr-${{ github.event.inputs.release-version }}-sources.jar
+        asset_content_type: application/java-archive
+
+    # Publish: see https://github.com/actions/setup-java#publishing-using-apache-maven
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+
+    - name: Publish to GitHub Packages Apache Maven
+      run: mvn deploy -Pdeploy-github
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with: # running setup-java again overwrites the settings.xml
+        java-version: 1.8
+        server-id: repsy # Value of the distributionManagement/repository/id field of the pom.xml
+        server-username: REPSY_USERNAME # env variable for username in deploy
+        server-password: REPSY_PASSWORD # env variable for password in deploy
+
+    - name: Publish to Maven Repository on Repsy
+      run: mvn deploy -Pdeploy-repsy
+      env:
+        REPSY_USERNAME: ${{ secrets.REPSY_USERNAME }}
+        REPSY_PASSWORD: ${{ secrets.REPSY_PASSWORD }}
+
+
+    - name: Set development version with Maven
+      run: mvn -B -V mvn org.codehaus.mojo:versions-maven-plugin:2.5:set -DnewVersion=${{ github.event.inputs.development-version }} org.codehaus.mojo:versions-maven-plugin:2.5:commit
+    
+    - name: Push update of development version
+      uses: actions-x/commit@v2
+      with:
+        name: github-actions
+        email: github-actions[bot]@users.noreply.github.com

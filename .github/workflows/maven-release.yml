@@ -38,14 +38,7 @@ jobs:
       run: mvn -B -V org.codehaus.mojo:versions-maven-plugin:2.5:set -DnewVersion=${{ github.event.inputs.release-version }} org.codehaus.mojo:versions-maven-plugin:2.5:commit
 
     - name: Build with Maven
-      run: mvn -B -V package --file pom.xml -DskipTests -DskipITs -Dchecks.skip=true
-
-
-    - name: Generate Changelog
-      uses: srt32/git-actions@v0.0.3
-      with:
-        args: "git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:\"%s\" -i -E --grep=\"^\\s*(\\[FEATURE\\]|\\[FIX\\])]\" > .release_notes.txt"
-        #args: "git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:\"%s\" -i -E --grep=\"^\s*(\\[INTERNAL\\]|\\[FEATURE\\]|\\[FIX\\]|\\[DOC\\])*(\\[FEATURE\\]|\\[FIX\\])]" > .release_notes.txt
+      run: mvn -B -V package --file pom.xml
 
     - name: Create Release
       id: create-release
@@ -55,7 +48,6 @@ jobs:
       with:
         tag_name: ${{ github.event.inputs.release-version }}
         release_name: Release ${{ github.event.inputs.release-version }}
-        body_path: .release_notes.txt
 
     - name: Upload Release Asset JAR
       id: upload-release-asset-jar

@@ -106,4 +106,4 @@ jobs:
       with:
         name: github-actions
         email: github-actions[bot]@users.noreply.github.com
-        message: "[INTERNAL] Update development version to ${{ github.event.inputs.development-version }}"
+        message: "Update development version to ${{ github.event.inputs.development-version }}"

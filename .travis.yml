@@ -23,4 +23,4 @@ cache:
 #  on:
 #    tags: true
 #after_deploy:
-#  - mvn --settings .travis.settings.xml deploy -Dregistry=https://maven.pkg.github.com/Befrish -DskipTests=true -Dmaven.javadoc.skip=true -Dchecks.skip=true -B -V
+#  - mvn --settings .deploy.settings.xml deploy -Dregistry=https://maven.pkg.github.com/Befrish -DskipTests=true -Dmaven.javadoc.skip=true -Dchecks.skip=true -B -V

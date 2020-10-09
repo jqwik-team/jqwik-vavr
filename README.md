@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/Befrish/jqwik-vavr.svg?branch=main)](https://travis-ci.com/Befrish/jqwik-vavr)
+![Build Status](https://github.com/Befrish/jqwik-vavr/workflows/build/badge.svg)
 <!--![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https%3A%2F%2Fmaven.pkg.github.com%2FBefrish%2Fjqwik-vavr%2Fde%2Fbefrish%2Fjqwik%2Fjqwik-vavr)-->
 
 # Vavr support for jqwik

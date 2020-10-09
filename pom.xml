@@ -35,11 +35,11 @@
     </scm>
 
     <distributionManagement>
-        <repository>
+        <!--<repository>
             <id>github</id>
             <name>GitHub Befrish Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/Befrish/${project.artifactId}</url>
-        </repository>
+        </repository>-->
         <repository>
             <id>repsy</id>
             <name>Maven Repositoty on Repsy</name>

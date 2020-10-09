@@ -43,4 +43,6 @@ jobs:
         git-release-bot-name: "release-bot"
         git-release-bot-email: "software@befrish.de"
 
-        access-token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        access-token: ${{ github.token }}
+      env:
+         GITHUB_ACCESS_TOKEN: ${{ github.token }}

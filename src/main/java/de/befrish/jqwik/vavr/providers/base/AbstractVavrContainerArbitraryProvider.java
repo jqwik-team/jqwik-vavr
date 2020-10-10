@@ -1,4 +1,4 @@
-package de.befrish.jqwik.vavr.providers;
+package de.befrish.jqwik.vavr.providers.base;
 
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.providers.ArbitraryProvider;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  *
  * @author Benno Müller
  */
-abstract class AbstractVavrContainerArbitraryProvider implements ArbitraryProvider {
+public abstract class AbstractVavrContainerArbitraryProvider implements ArbitraryProvider {
 
     @Override
     public boolean canProvideFor(final TypeUsage targetType) {

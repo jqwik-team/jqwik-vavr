@@ -1,13 +1,9 @@
-package de.befrish.jqwik.vavr.arbitraries.impl;
+package de.befrish.jqwik.vavr.arbitraries.base;
 
-import io.vavr.Lazy;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.EdgeCases;
 import net.jqwik.api.RandomGenerator;
 
-/**
- * @author Benno Müller
- */
 public abstract class SinglevalueArbitraryBase<T, U> implements Arbitrary<U> {
 
     private final Arbitrary<T> innerArbitrary;

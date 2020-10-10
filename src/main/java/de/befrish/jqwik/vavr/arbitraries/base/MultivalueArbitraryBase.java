@@ -1,4 +1,4 @@
-package de.befrish.jqwik.vavr.arbitraries.impl;
+package de.befrish.jqwik.vavr.arbitraries.base;
 
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.EdgeCases;
@@ -19,14 +19,14 @@ import java.util.function.BiFunction;
 
 import static net.jqwik.engine.properties.arbitraries.ArbitrariesSupport.maxNumberOfElements;
 
-abstract class MultivalueArbitraryBase<T, U> extends AbstractArbitraryBase implements StreamableArbitrary<T, U> {
+public abstract class MultivalueArbitraryBase<T, U> extends AbstractArbitraryBase implements StreamableArbitrary<T, U> {
 
 	protected Arbitrary<T> elementArbitrary;
 	protected int minSize = 0;
 	protected int maxSize = RandomGenerators.DEFAULT_COLLECTION_SIZE;
 	private final boolean elementsUnique;
 
-	protected MultivalueArbitraryBase(final Arbitrary<T> elementArbitrary, final boolean elementsUnique) {
+	public MultivalueArbitraryBase(final Arbitrary<T> elementArbitrary, final boolean elementsUnique) {
 		this.elementArbitrary = elementArbitrary;
 		this.elementsUnique = elementsUnique;
 		if (elementsUnique) {

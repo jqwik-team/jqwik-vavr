@@ -1,23 +1,23 @@
 package de.befrish.jqwik.vavr.providers;
 
-import de.befrish.jqwik.vavr.arbitraries.VavrLazyArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.VavrTreeArbitrary;
 import de.befrish.jqwik.vavr.providers.base.AbstractVavrContainerArbitraryProvider;
-import io.vavr.Lazy;
+import io.vavr.collection.Tree;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.providers.ArbitraryProvider;
 import org.kohsuke.MetaInfServices;
 
 @MetaInfServices(ArbitraryProvider.class)
-public class VavrLazyArbitraryProvider extends AbstractVavrContainerArbitraryProvider {
+public class VavrTreeArbitraryProvider extends AbstractVavrContainerArbitraryProvider {
 
     @Override
     protected Class<?> getProvidedType() {
-        return Lazy.class;
+        return Tree.class;
     }
 
     @Override
-    protected VavrLazyArbitrary<?> create(final Arbitrary<?> innerArbitrary) {
-        return new VavrLazyArbitrary<>(innerArbitrary);
+    protected VavrTreeArbitrary<?> create(final Arbitrary<?> innerArbitrary) {
+        return new VavrTreeArbitrary<>(innerArbitrary, innerArbitrary.isUnique());
     }
 
 }

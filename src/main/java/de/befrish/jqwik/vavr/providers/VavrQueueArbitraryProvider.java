@@ -1,23 +1,23 @@
 package de.befrish.jqwik.vavr.providers;
 
-import de.befrish.jqwik.vavr.arbitraries.VavrLazyArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.VavrQueueArbitrary;
 import de.befrish.jqwik.vavr.providers.base.AbstractVavrContainerArbitraryProvider;
-import io.vavr.Lazy;
+import io.vavr.collection.Queue;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.providers.ArbitraryProvider;
 import org.kohsuke.MetaInfServices;
 
 @MetaInfServices(ArbitraryProvider.class)
-public class VavrLazyArbitraryProvider extends AbstractVavrContainerArbitraryProvider {
+public class VavrQueueArbitraryProvider extends AbstractVavrContainerArbitraryProvider {
 
     @Override
     protected Class<?> getProvidedType() {
-        return Lazy.class;
+        return Queue.class;
     }
 
     @Override
-    protected VavrLazyArbitrary<?> create(final Arbitrary<?> innerArbitrary) {
-        return new VavrLazyArbitrary<>(innerArbitrary);
+    protected VavrQueueArbitrary<?> create(final Arbitrary<?> innerArbitrary) {
+        return new VavrQueueArbitrary<>(innerArbitrary, innerArbitrary.isUnique());
     }
 
 }

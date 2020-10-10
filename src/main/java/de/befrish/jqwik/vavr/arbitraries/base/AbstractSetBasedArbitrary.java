@@ -1,58 +1,50 @@
-package de.befrish.jqwik.vavr.arbitraries.impl;
+package de.befrish.jqwik.vavr.arbitraries.base;
 
-import de.befrish.jqwik.vavr.arbitraries.VavrSetArbitrary;
-import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.EdgeCases;
 import net.jqwik.api.ExhaustiveGenerator;
 import net.jqwik.api.RandomGenerator;
+import net.jqwik.api.arbitraries.StreamableArbitrary;
 import net.jqwik.engine.properties.arbitraries.exhaustive.ExhaustiveGenerators;
 import net.jqwik.engine.properties.arbitraries.randomized.RandomGenerators;
 import net.jqwik.engine.properties.shrinking.ShrinkableSet;
 
 import java.util.Optional;
 
-public class DefaultVavrSetArbitrary<T> extends MultivalueArbitraryBase<T, Set<T>> implements VavrSetArbitrary<T> {
+public abstract class AbstractSetBasedArbitrary<T, U extends Set<T>> extends MultivalueArbitraryBase<T, U>
+		implements StreamableArbitrary<T, U> {
 
-	public DefaultVavrSetArbitrary(Arbitrary<T> elementArbitrary) {
+	public AbstractSetBasedArbitrary(Arbitrary<T> elementArbitrary) {
 		super(elementArbitrary, true);
 	}
 
+	protected abstract U convertJavaSetToVavrCollection(java.util.Set<T> javaSet);
+
 	@Override
-	protected Iterable<T> toIterable(Set<T> streamable) {
+	protected Iterable<T> toIterable(U streamable) {
 		return streamable;
 	}
 
 	@Override
-	public RandomGenerator<Set<T>> generator(int genSize) {
+	public RandomGenerator<U> generator(int genSize) {
 		int cutoffSize = cutoffSize(genSize);
 		RandomGenerator<T> elementGenerator = elementGenerator(elementArbitrary, genSize);
 		return RandomGenerators.set(elementGenerator, minSize, maxSize, cutoffSize)
 				.withEdgeCases(genSize, edgeCases().map(Set::toJavaSet))
-				.map(HashSet::ofAll);
+				.map(this::convertJavaSetToVavrCollection);
 	}
 
 	@Override
-	public Optional<ExhaustiveGenerator<Set<T>>> exhaustive(long maxNumberOfSamples) {
+	public Optional<ExhaustiveGenerator<U>> exhaustive(long maxNumberOfSamples) {
 		return ExhaustiveGenerators.set(elementArbitrary, minSize, maxSize, maxNumberOfSamples)
-				.map(exhaustiveGenerator -> exhaustiveGenerator.map(HashSet::ofAll));
+				.map(exhaustiveGenerator -> exhaustiveGenerator.map(this::convertJavaSetToVavrCollection));
 	}
 
 	@Override
-	public EdgeCases<Set<T>> edgeCases() {
+	public EdgeCases<U> edgeCases() {
 		return edgeCases((elementList, minSize1) -> new ShrinkableSet<>(new java.util.HashSet<>(elementList), minSize1, maxSize))
-				.map(HashSet::ofAll);
-	}
-
-	@Override
-	public VavrSetArbitrary<T> ofMaxSize(int maxSize) {
-		return (VavrSetArbitrary<T>) super.ofMaxSize(maxSize);
-	}
-
-	@Override
-	public VavrSetArbitrary<T> ofMinSize(int minSize) {
-		return (VavrSetArbitrary<T>) super.ofMinSize(minSize);
+				.map(this::convertJavaSetToVavrCollection);
 	}
 
 //	@Override

@@ -5,10 +5,25 @@
 
 Adds [jqwik](https://jqwik.net/) arbitraries for [Vavr](https://www.vavr.io/vavr-docs/) data structures:
 
-- io.vavr.collection.List
-- io.vavr.collection.Set
+- `io.vavr.collection.Iterator`
+- `io.vavr.collection.Stream`
+- `io.vavr.collection.Seq`
+- `io.vavr.collection.LinearSeq`
+- `io.vavr.collection.List`
+- `io.vavr.collection.Queue`
+- `io.vavr.collection.PriorityQueue`
+- `io.vavr.collection.IndexedSeq`
+- `io.vavr.collection.Array`
+- `io.vavr.collection.Vector`
+- `io.vavr.collection.CharSeq`
+- `io.vavr.collection.Set`
+- `io.vavr.collection.HashSet`
+- `io.vavr.collection.LinkedHashSet`
+- `io.vavr.collection.TreeSet`
+- `io.vavr.collection.BitSet`
+- `io.vavr.collection.Tree`
 
-- io.vavr.Lazy
+- `io.vavr.Lazy`
 
 <!--
 - io.vavr.collection.*
@@ -16,34 +31,31 @@ Adds [jqwik](https://jqwik.net/) arbitraries for [Vavr](https://www.vavr.io/vavr
 - io.vavr.control.*
 -->
 
-_More collections and data structures will be implemented in later versions. In Version 1.0.0 should all data structures._
+_More Vavr collections and data structures will be implemented in later versions.
+Version 1.0.0 will support all Vavr data structures which extends `io.vavr.Value`._
 
-## Usage
-
-ToDo examples
+## Examples
 
 ```java
 @Property
-void generateDistinctLists(@ForAll final List<@Unique Integer> list) {
+void generateDistinctLists(@ForAll final io.vavr.collection.List<@Unique Integer> list) {
     assertThat(list.distinct().size(), is(list.size()));
 }
 ```
 
 ```java
 @Provide
-Arbitrary<List<Integer>> integersMin3() {
+Arbitrary<io.vavr.collection.List<Integer>> integersMin3() {
     return VavrArbitraries.list(Arbitraries.integers()).ofMinSize(3);
 }
 
 @Property
-void generateSizableListFrom(@ForAll @From("integersMin3") final List<Integer> list) {
+void generateSizableListFrom(@ForAll @From("integersMin3") final io.vavr.collection.List<Integer> list) {
     assertThat(list.size(), is(greaterThanOrEqualTo(3)));
 }
 ```
 
-## Installation
-
-### Maven
+## Installation with Maven
 
 ```xml
 <repositories>

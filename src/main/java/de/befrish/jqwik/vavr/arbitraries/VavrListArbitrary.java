@@ -1,40 +1,18 @@
 package de.befrish.jqwik.vavr.arbitraries;
 
+import de.befrish.jqwik.vavr.arbitraries.base.AbstractListBasedVavrArbitrary;
 import io.vavr.collection.List;
-import net.jqwik.api.arbitraries.StreamableArbitrary;
+import net.jqwik.api.Arbitrary;
 
-/**
- * @author Benno Müller
- */
-public interface VavrListArbitrary<T> extends StreamableArbitrary<T, List<T>> {
+public class VavrListArbitrary<T> extends AbstractListBasedVavrArbitrary<T, List<T>> {
 
-    /**
-     * Fix the size to {@code size}.
-     *
-     * @param size The size of the generated list
-     * @return new arbitrary instance
-     */
-    @Override
-    default VavrListArbitrary<T> ofSize(final int size) {
-        return ofMinSize(size).ofMaxSize(size);
-    }
+	public VavrListArbitrary(final Arbitrary<T> elementArbitrary, final boolean elementsUnique) {
+		super(elementArbitrary, elementsUnique);
+	}
 
-    /**
-     * Set lower size boundary {@code minSize} (included).
-     *
-     * @param minSize The minimum size of the generated list
-     * @return new arbitrary instance
-     */
-    @Override
-    VavrListArbitrary<T> ofMinSize(int minSize);
+	@Override
+	protected List<T> convertJavaListToVavrCollection(java.util.List<T> javaList) {
+		return List.ofAll(javaList);
+	}
 
-    /**
-     * Set upper size boundary {@code maxSize} (included).
-     *
-     * @param maxSize The maximum size of the generated list
-     * @return new arbitrary instance
-     */
-    @Override
-    VavrListArbitrary<T> ofMaxSize(int maxSize);
-    
 }

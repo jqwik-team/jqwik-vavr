@@ -14,6 +14,8 @@ public abstract class AbstractSingleValueArbitrary<T, U> implements Arbitrary<U>
 
     protected abstract U mapValue(T value);
 
+    protected abstract EdgeCases<U> edgeCases(final Arbitrary<T> innerArbitrary);
+
     @Override
     public RandomGenerator<U> generator(final int genSize) {
         return this.innerArbitrary.generator(genSize).map(this::mapValue);
@@ -21,7 +23,7 @@ public abstract class AbstractSingleValueArbitrary<T, U> implements Arbitrary<U>
 
     @Override
     public EdgeCases<U> edgeCases() {
-        return this.innerArbitrary.edgeCases().map(this::mapValue);
+        return edgeCases(this.innerArbitrary);
     }
 
 }

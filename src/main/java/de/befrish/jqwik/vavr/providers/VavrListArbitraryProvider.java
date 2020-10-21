@@ -1,14 +1,14 @@
 package de.befrish.jqwik.vavr.providers;
 
 import de.befrish.jqwik.vavr.arbitraries.VavrListArbitrary;
-import de.befrish.jqwik.vavr.providers.base.AbstractVavrContainerArbitraryProvider;
+import de.befrish.jqwik.vavr.providers.base.AbstractSingleTypeArbitraryProvider;
 import io.vavr.collection.List;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.providers.ArbitraryProvider;
 import org.kohsuke.MetaInfServices;
 
 @MetaInfServices(ArbitraryProvider.class)
-public class VavrListArbitraryProvider extends AbstractVavrContainerArbitraryProvider {
+public class VavrListArbitraryProvider extends AbstractSingleTypeArbitraryProvider {
 
     @Override
     protected Class<?> getProvidedType() {

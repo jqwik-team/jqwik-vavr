@@ -12,14 +12,7 @@ import java.util.stream.Collectors;
  *
  * @author Benno Müller
  */
-public abstract class AbstractVavrContainerArbitraryProvider implements ArbitraryProvider {
-
-    @Override
-    public boolean canProvideFor(final TypeUsage targetType) {
-        return targetType.isAssignableFrom(getProvidedType());
-    }
-
-    protected abstract Class<?> getProvidedType();
+public abstract class AbstractSingleTypeArbitraryProvider extends AbstractArbitraryProvider {
 
     @Override
     public Set<Arbitrary<?>> provideFor(final TypeUsage targetType, final SubtypeProvider subtypeProvider) {

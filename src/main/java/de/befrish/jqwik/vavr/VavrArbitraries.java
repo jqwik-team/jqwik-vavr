@@ -3,16 +3,20 @@ package de.befrish.jqwik.vavr;
 import de.befrish.jqwik.vavr.arbitraries.VavrArrayArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrBitSetArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrCharSeqArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.VavrEitherArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrHashSetArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrIteratorArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrLazyArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrLinkedHashSetArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrListArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.VavrOptionArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrPriorityQueueArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrQueueArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrStreamArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrTreeArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrTreeSetArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.VavrTryArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.VavrValidationArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrVectorArbitrary;
 import io.vavr.collection.Array;
 import io.vavr.collection.BitSet;
@@ -34,6 +38,7 @@ import io.vavr.collection.Vector;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.arbitraries.StreamableArbitrary;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public final class VavrArbitraries {
@@ -48,6 +53,28 @@ public final class VavrArbitraries {
 
     public static <T> VavrLazyArbitrary<T> lazy(final Arbitrary<T> innerArbitrary) {
         return new VavrLazyArbitrary<>(innerArbitrary);
+    }
+
+    public static <T> VavrOptionArbitrary<T> option(final Arbitrary<T> innerArbitrary) {
+        return new VavrOptionArbitrary<>(innerArbitrary.injectNull(0.05));
+    }
+
+    public static <L, R> VavrEitherArbitrary<L, R> either(
+            final Arbitrary<L> leftArbitrary,
+            final Arbitrary<R> rightArbitrary) {
+        return new VavrEitherArbitrary<>(leftArbitrary, rightArbitrary);
+    }
+
+    public static <T> VavrTryArbitrary<T> try_(
+            final Arbitrary<T> innerArbitrary,
+            final Arbitrary<Throwable> exceptionArbitrary) {
+        return new VavrTryArbitrary<>(innerArbitrary, exceptionArbitrary);
+    }
+
+    public static <E, T> VavrValidationArbitrary<E, T> validation(
+            final Arbitrary<E> failureArbitrary,
+            final Arbitrary<T> innerArbitrary) {
+        return new VavrValidationArbitrary<>(failureArbitrary, innerArbitrary);
     }
 
     public static <T> StreamableArbitrary<T, Iterator<T>> iterator(final Arbitrary<T> elementArbitrary) {

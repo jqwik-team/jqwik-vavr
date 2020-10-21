@@ -25,10 +25,14 @@ Adds [jqwik](https://jqwik.net/) arbitraries for [Vavr](https://www.vavr.io/vavr
 
 - `io.vavr.Lazy`
 
+- `io.vavr.control.Option`
+- `io.vavr.control.Either`
+- `io.vavr.control.Try`
+- `io.vavr.control.Validation`
+
 <!--
 - io.vavr.collection.*
 - io.vavr.concurrent.*
-- io.vavr.control.*
 -->
 
 _More Vavr collections and data structures will be implemented in later versions.

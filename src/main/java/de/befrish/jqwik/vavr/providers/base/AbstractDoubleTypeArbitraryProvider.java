@@ -1,12 +1,16 @@
 package de.befrish.jqwik.vavr.providers.base;
 
+import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.providers.TypeUsage;
+import net.jqwik.engine.providers.HashMapArbitraryProvider;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ * @see HashMapArbitraryProvider
+ *
  * @author Benno Müller
  */
 public abstract class AbstractDoubleTypeArbitraryProvider extends AbstractArbitraryProvider {
@@ -15,11 +19,14 @@ public abstract class AbstractDoubleTypeArbitraryProvider extends AbstractArbitr
     public Set<Arbitrary<?>> provideFor(final TypeUsage targetType, final SubtypeProvider subtypeProvider) {
         final TypeUsage firstType = targetType.getTypeArgument(0);
         final TypeUsage secondType = targetType.getTypeArgument(1);
-        final Set<Arbitrary<?>> firstArbitraries = subtypeProvider.apply(firstType);
-        final Set<Arbitrary<?>> secondArbitraries = subtypeProvider.apply(secondType);
-        return firstArbitraries.stream()
-                .flatMap(firstArbitrary -> secondArbitraries.stream()
-                        .map(secondArbitrary -> create(firstArbitrary, secondArbitrary)))
+
+        return subtypeProvider
+                .resolveAndCombine(firstType, secondType)
+                .map(arbitraries -> {
+                    final Arbitrary<?> firstArbitrary = arbitraries.get(0);
+                    final Arbitrary<?> secondArbitrary = arbitraries.get(1);
+                    return create(firstArbitrary, secondArbitrary);
+                })
                 .collect(Collectors.toSet());
     }
 

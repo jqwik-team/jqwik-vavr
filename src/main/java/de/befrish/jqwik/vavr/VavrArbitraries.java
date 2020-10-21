@@ -1,45 +1,61 @@
 package de.befrish.jqwik.vavr;
 
-import de.befrish.jqwik.vavr.arbitraries.VavrArrayArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrBitSetArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrCharSeqArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrEitherArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrFutureArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrHashSetArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrIteratorArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.map.VavrHashMultimapArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.map.VavrLinkedHashMultimapArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.map.VavrTreeMultimapArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.seq.VavrArrayArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.set.VavrBitSetArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.seq.VavrCharSeqArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.control.VavrEitherArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.concurrent.VavrFutureArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.map.VavrHashMapArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.set.VavrHashSetArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.VavrIteratorArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrLazyArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrLinkedHashSetArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrListArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrOptionArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrPriorityQueueArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrQueueArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrStreamArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrTreeArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrTreeSetArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrTryArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrValidationArbitrary;
-import de.befrish.jqwik.vavr.arbitraries.VavrVectorArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.map.VavrLinkedHashMapArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.set.VavrLinkedHashSetArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.seq.VavrListArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.control.VavrOptionArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.queue.VavrPriorityQueueArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.queue.VavrQueueArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.VavrStreamArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.VavrTreeArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.map.VavrTreeMapArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.set.VavrTreeSetArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.control.VavrTryArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.control.VavrValidationArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.collection.seq.VavrVectorArbitrary;
 import io.vavr.collection.Array;
 import io.vavr.collection.BitSet;
 import io.vavr.collection.CharSeq;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.HashMultimap;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.IndexedSeq;
 import io.vavr.collection.Iterator;
 import io.vavr.collection.LinearSeq;
+import io.vavr.collection.LinkedHashMap;
+import io.vavr.collection.LinkedHashMultimap;
 import io.vavr.collection.LinkedHashSet;
 import io.vavr.collection.List;
+import io.vavr.collection.Map;
+import io.vavr.collection.Multimap;
 import io.vavr.collection.PriorityQueue;
 import io.vavr.collection.Queue;
 import io.vavr.collection.Seq;
 import io.vavr.collection.Set;
+import io.vavr.collection.SortedMap;
+import io.vavr.collection.SortedMultimap;
 import io.vavr.collection.Stream;
 import io.vavr.collection.Tree;
+import io.vavr.collection.TreeMap;
+import io.vavr.collection.TreeMultimap;
 import io.vavr.collection.TreeSet;
 import io.vavr.collection.Vector;
 import net.jqwik.api.Arbitrary;
+import net.jqwik.api.arbitraries.SizableArbitrary;
 import net.jqwik.api.arbitraries.StreamableArbitrary;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 public final class VavrArbitraries {
@@ -156,6 +172,56 @@ public final class VavrArbitraries {
         return new VavrTreeArbitrary<>(elementArbitrary, elementArbitrary.isUnique());
     }
 
+    public static <K, V> SizableArbitrary<HashMap<K, V>> hashMap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return new VavrHashMapArbitrary<>(keysArbitrary, valuesArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<LinkedHashMap<K, V>> linkedHashMap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return new VavrLinkedHashMapArbitrary<>(keysArbitrary, valuesArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<TreeMap<K, V>> treeMap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return new VavrTreeMapArbitrary<>(keysArbitrary, valuesArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<TreeMap<K, V>> treeMap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary,
+            final Comparator<K> keyComparator) {
+        return new VavrTreeMapArbitrary<>(keysArbitrary, valuesArbitrary, keyComparator);
+    }
+
+    public static <K, V> SizableArbitrary<HashMultimap<K, V>> hashMultimap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return new VavrHashMultimapArbitrary<>(keysArbitrary, valuesArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<LinkedHashMultimap<K, V>> linkedHashMultimap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return new VavrLinkedHashMultimapArbitrary<>(keysArbitrary, valuesArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<TreeMultimap<K, V>> treeMultimap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return new VavrTreeMultimapArbitrary<>(keysArbitrary, valuesArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<TreeMultimap<K, V>> treeMultimap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary,
+            final Comparator<K> keyComparator) {
+        return new VavrTreeMultimapArbitrary<>(keysArbitrary, valuesArbitrary, keyComparator);
+    }
+
     /*
      * Interfaces
      */
@@ -179,6 +245,30 @@ public final class VavrArbitraries {
     public static <T extends Comparable<T>> StreamableArbitrary<T, TreeSet<T>> sortedSet(
             final Arbitrary<T> elementArbitrary) {
         return treeSet(elementArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<? extends Map<K, V>> map(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return hashMap(keysArbitrary, valuesArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<? extends SortedMap<K, V>> sortedMap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return treeMap(keysArbitrary, valuesArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<? extends Multimap<K, V>> multimap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return hashMultimap(keysArbitrary, valuesArbitrary);
+    }
+
+    public static <K, V> SizableArbitrary<? extends SortedMultimap<K, V>> sortedMultimap(
+            final Arbitrary<K> keysArbitrary,
+            final Arbitrary<V> valuesArbitrary) {
+        return treeMultimap(keysArbitrary, valuesArbitrary);
     }
 
 }

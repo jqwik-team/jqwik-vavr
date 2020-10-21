@@ -19,9 +19,20 @@ Adds [jqwik](https://jqwik.net/) arbitraries for [Vavr](https://www.vavr.io/vavr
 - `io.vavr.collection.Set`
 - `io.vavr.collection.HashSet`
 - `io.vavr.collection.LinkedHashSet`
+- `io.vavr.collection.SortedSet`
 - `io.vavr.collection.TreeSet`
 - `io.vavr.collection.BitSet`
 - `io.vavr.collection.Tree`
+- `io.vavr.collection.Map`
+- `io.vavr.collection.HashMap`
+- `io.vavr.collection.LinkedHashMap`
+- `io.vavr.collection.SortedMap`
+- `io.vavr.collection.TreeMap`
+- `io.vavr.collection.Multimap`
+- `io.vavr.collection.HashMultimap`
+- `io.vavr.collection.LinkedHashMultimap`
+- `io.vavr.collection.SortedMultimap`
+- `io.vavr.collection.TreeMultimap`
 
 - `io.vavr.Lazy`
 

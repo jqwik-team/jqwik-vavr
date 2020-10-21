@@ -1,5 +1,6 @@
 package de.befrish.jqwik.vavr;
 
+import de.befrish.jqwik.vavr.base.VavrArbitraryTestBase;
 import io.vavr.Lazy;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
@@ -15,7 +16,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-class VavrLazyArbitraryTest {
+class VavrLazyArbitraryTest extends VavrArbitraryTestBase<Lazy<Integer>> {
 
     @Provide
     Arbitrary<Lazy<Integer>> integersMin3() {
@@ -25,12 +26,6 @@ class VavrLazyArbitraryTest {
     @Property
     void generateFrom(@ForAll @From("integersMin3") final Lazy<Integer> lazy) {
         assertThat(lazy.get(), is(greaterThanOrEqualTo(3)));
-    }
-
-    @Property
-    void generate(@ForAll final Lazy<Integer> lazy) {
-        // Test that the ArbitraryProvider works (fails if not found)
-        assertThat(lazy, is(notNullValue()));
     }
 
     @Property

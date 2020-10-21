@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public abstract class VavrTraversableArbitraryTestBase<
         UI extends Traversable<Integer>,
-        UB extends Traversable<Boolean>> {
+        UB extends Traversable<Boolean>> extends VavrArbitraryTestBase<UI> {
 
     /**
      * Should use {@code VavrArbitraries} factory method.
@@ -49,62 +49,12 @@ public abstract class VavrTraversableArbitraryTestBase<
     }
 
     /*
-     * use ArbitraryProvider
-     */
-
-    @Property
-    void generate(@ForAll final UI u) {
-        // Test that the ArbitraryProvider works (fails if not found)
-        assertThat(u, is(notNullValue()));
-    }
-
-    /*
      * Attribute values of shrinking, generation and edgeCases
      */
-
-    @Property(shrinking = ShrinkingMode.OFF)
-    void generateShrinkingOff(@ForAll final UI u) {
-        assertThat(u, is(notNullValue()));
-    }
-
-    @Property(shrinking = ShrinkingMode.FULL)
-    void generateShrinkingFull(@ForAll final UI u) {
-        assertThat(u, is(notNullValue()));
-    }
-
-    @Property(shrinking = ShrinkingMode.BOUNDED)
-    void generateShrinkingBounded(@ForAll final UI u) {
-        assertThat(u, is(notNullValue()));
-    }
-
-    @Property(generation = GenerationMode.AUTO)
-    void generateGenerationAuto(@ForAll final UI u) {
-        assertThat(u, is(notNullValue()));
-    }
-
-    @Property(generation = GenerationMode.RANDOMIZED)
-    void generateGenerationRandomized(@ForAll final UI u) {
-        assertThat(u, is(notNullValue()));
-    }
 
     @Property(generation = GenerationMode.EXHAUSTIVE)
     void generateGenerationExhaustive(@ForAll @Size(max = 5) final UB u) {
         assertThat(u.size(), is(lessThanOrEqualTo(5)));
-    }
-
-    @Property(edgeCases = EdgeCasesMode.NONE)
-    void generateEdgeCasesNone(@ForAll final UI u) {
-        assertThat(u, is(notNullValue()));
-    }
-
-    @Property(edgeCases = EdgeCasesMode.FIRST)
-    void generateEdgeCasesFirst(@ForAll final UI u) {
-        assertThat(u, is(notNullValue()));
-    }
-
-    @Property(edgeCases = EdgeCasesMode.MIXIN)
-    void generateEdgeCasesMixin(@ForAll final UI u) {
-        assertThat(u, is(notNullValue()));
     }
 
     /*

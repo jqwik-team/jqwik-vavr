@@ -1,27 +1,33 @@
 package de.befrish.jqwik.vavr.control;
 
 import de.befrish.jqwik.vavr.VavrArbitraries;
+import de.befrish.jqwik.vavr.base.VavrArbitraryTestBase;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.From;
+import net.jqwik.api.GenerationMode;
 import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
 import net.jqwik.api.constraints.CharRange;
 import net.jqwik.api.constraints.IntRange;
+import net.jqwik.api.constraints.Size;
+import net.jqwik.api.constraints.StringLength;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
+import static de.befrish.jqwik.vavr.TestMatchers.hasOnlyAs;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-class VavrEitherArbitraryTest {
+class VavrEitherArbitraryTest extends VavrArbitraryTestBase<Either<String, Integer>> {
 
     @Provide
     Arbitrary<Either<String, Integer>> integersMin3OrAString() {
@@ -40,12 +46,6 @@ class VavrEitherArbitraryTest {
     }
 
     @Property
-    void generate(@ForAll final Either<String, Integer> either) {
-        // Test that the ArbitraryProvider works (fails if not found)
-        assertThat(either, is(notNullValue()));
-    }
-
-    @Property
     void generateWithValueContraints(@ForAll final Either<@CharRange(from = 'a', to = 'a') String, @IntRange(min = 3, max = 42) Integer> either) {
         if (either.isLeft()) {
             assertThat(either.getLeft(), is(hasOnlyAs()));
@@ -53,21 +53,6 @@ class VavrEitherArbitraryTest {
             assertThat(either.get(), is(greaterThanOrEqualTo(3)));
             assertThat(either.get(), is(lessThanOrEqualTo(42)));
         }
-    }
-
-    private static Matcher<String> hasOnlyAs() {
-        return new TypeSafeDiagnosingMatcher<String>() {
-            @Override
-            protected boolean matchesSafely(final String item, final Description mismatchDescription) {
-                mismatchDescription.appendText("String ").appendValue(item);
-                return item.replaceAll("a", "").isEmpty();
-            }
-
-            @Override
-            public void describeTo(final Description description) {
-                description.appendText("String only containing char 'a'");
-            }
-        };
     }
 
 }

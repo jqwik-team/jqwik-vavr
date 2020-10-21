@@ -1,6 +1,7 @@
 package de.befrish.jqwik.vavr.control;
 
 import de.befrish.jqwik.vavr.VavrArbitraries;
+import de.befrish.jqwik.vavr.base.VavrArbitraryTestBase;
 import io.vavr.control.Option;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
@@ -16,7 +17,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-class VavrOptionArbitraryTest {
+class VavrOptionArbitraryTest extends VavrArbitraryTestBase<Option<Integer>> {
 
     @Provide
     Arbitrary<Option<Integer>> integersMin3() {
@@ -26,12 +27,6 @@ class VavrOptionArbitraryTest {
     @Property
     void generateFrom(@ForAll @From("integersMin3") final Option<Integer> option) {
         assertThat(option.getOrElse(3), is(greaterThanOrEqualTo(3)));
-    }
-
-    @Property
-    void generate(@ForAll final Option<Integer> option) {
-        // Test that the ArbitraryProvider works (fails if not found)
-        assertThat(option, is(notNullValue()));
     }
 
     @Property

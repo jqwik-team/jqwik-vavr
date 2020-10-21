@@ -1,6 +1,7 @@
 package de.befrish.jqwik.vavr.concurrent;
 
 import de.befrish.jqwik.vavr.VavrArbitraries;
+import de.befrish.jqwik.vavr.base.VavrArbitraryTestBase;
 import io.vavr.concurrent.Future;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
@@ -19,7 +20,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-class VavrFutureArbitraryTest {
+class VavrFutureArbitraryTest extends VavrArbitraryTestBase<Future<Integer>> {
 
     @Provide
     Arbitrary<Future<Integer>> integersMin3OrIOException() {

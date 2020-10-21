@@ -1,6 +1,7 @@
 package de.befrish.jqwik.vavr.control;
 
 import de.befrish.jqwik.vavr.VavrArbitraries;
+import de.befrish.jqwik.vavr.base.VavrArbitraryTestBase;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import net.jqwik.api.Arbitraries;
@@ -25,7 +26,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-class VavrTryArbitraryTest {
+class VavrTryArbitraryTest extends VavrArbitraryTestBase<Try<Integer>> {
 
     @Provide
     Arbitrary<Try<Integer>> integersMin3OrIOException() {

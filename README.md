@@ -43,13 +43,6 @@ Adds [jqwik](https://jqwik.net/) arbitraries for [Vavr](https://www.vavr.io/vavr
 
 - `io.vavr.concurrent.Future`
 
-<!--
-- io.vavr.collection.*
--->
-
-_More Vavr collections and data structures will be implemented in later versions.
-Version 1.0.0 will support all Vavr data structures which extends `io.vavr.Value`._
-
 ## Examples
 
 ```java

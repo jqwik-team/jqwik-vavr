@@ -1,9 +1,10 @@
 package de.befrish.jqwik.vavr.providers;
 
+import de.befrish.jqwik.vavr.arbitraries.VavrFutureArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrTryArbitrary;
 import de.befrish.jqwik.vavr.providers.base.AbstractArbitraryProvider;
 import io.vavr.collection.List;
-import io.vavr.control.Try;
+import io.vavr.concurrent.Future;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.providers.ArbitraryProvider;
@@ -15,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @MetaInfServices(ArbitraryProvider.class)
-public class VavrTryArbitraryProvider extends AbstractArbitraryProvider {
+public class VavrFutureArbitraryProvider extends AbstractArbitraryProvider {
 
     private static final List<Throwable> DEFAULT_EXCEPTIONS = List.of(
             new Throwable(),
@@ -25,7 +26,7 @@ public class VavrTryArbitraryProvider extends AbstractArbitraryProvider {
 
     @Override
     protected Class<?> getProvidedType() {
-        return Try.class;
+        return Future.class;
     }
 
     @Override
@@ -41,7 +42,7 @@ public class VavrTryArbitraryProvider extends AbstractArbitraryProvider {
     }
 
     private Arbitrary<?> create(final Arbitrary<?> innerArbitrary, final Arbitrary<Throwable> exceptionArbitrary) {
-        return new VavrTryArbitrary<>(innerArbitrary, exceptionArbitrary);
+        return new VavrFutureArbitrary<>(innerArbitrary, exceptionArbitrary);
     }
 
 }

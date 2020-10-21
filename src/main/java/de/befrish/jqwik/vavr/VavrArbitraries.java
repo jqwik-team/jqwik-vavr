@@ -4,6 +4,7 @@ import de.befrish.jqwik.vavr.arbitraries.VavrArrayArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrBitSetArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrCharSeqArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrEitherArbitrary;
+import de.befrish.jqwik.vavr.arbitraries.VavrFutureArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrHashSetArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrIteratorArbitrary;
 import de.befrish.jqwik.vavr.arbitraries.VavrLazyArbitrary;
@@ -65,16 +66,22 @@ public final class VavrArbitraries {
         return new VavrEitherArbitrary<>(leftArbitrary, rightArbitrary);
     }
 
+    public static <E, T> VavrValidationArbitrary<E, T> validation(
+            final Arbitrary<E> failureArbitrary,
+            final Arbitrary<T> innerArbitrary) {
+        return new VavrValidationArbitrary<>(failureArbitrary, innerArbitrary);
+    }
+
     public static <T> VavrTryArbitrary<T> try_(
             final Arbitrary<T> innerArbitrary,
             final Arbitrary<Throwable> exceptionArbitrary) {
         return new VavrTryArbitrary<>(innerArbitrary, exceptionArbitrary);
     }
 
-    public static <E, T> VavrValidationArbitrary<E, T> validation(
-            final Arbitrary<E> failureArbitrary,
-            final Arbitrary<T> innerArbitrary) {
-        return new VavrValidationArbitrary<>(failureArbitrary, innerArbitrary);
+    public static <T> VavrFutureArbitrary<T> future(
+            final Arbitrary<T> innerArbitrary,
+            final Arbitrary<Throwable> exceptionArbitrary) {
+        return new VavrFutureArbitrary<>(innerArbitrary, exceptionArbitrary);
     }
 
     public static <T> StreamableArbitrary<T, Iterator<T>> iterator(final Arbitrary<T> elementArbitrary) {

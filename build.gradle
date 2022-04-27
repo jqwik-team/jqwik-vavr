@@ -1,0 +1,134 @@
+// see https://github.com/jlink/jqwik-spring/blob/main/build.gradle
+
+// gradle enforcer plugin does not support
+// spot is not usable since there is a bug when using lambdas
+// -> Maven should be kept in order too be able to check the code
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+}
+
+static isSnapshotRelease(versionString) {
+    versionString.endsWith('SNAPSHOT')
+}
+
+ext {
+    moduleName = 'net.jqwik.vavr'
+    jqwikVavrVersion = '2.0.0-SNAPSHOT'
+    jqwikVersion = '1.6.5'
+    vavrVersion = '0.10.4'
+    junitJupiterVersion = '5.8.2'
+    hamcrestVersion = '2.2'
+    isSnapshotRelease = isSnapshotRelease(jqwikVavrVersion)
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+group = moduleName
+version = jqwikVavrVersion
+description = "Jqwik Vavr support module"
+
+dependencies {
+    api("net.jqwik:jqwik:${jqwikVersion}")
+
+    implementation("net.jqwik:jqwik-engine:${jqwikVersion}")
+    implementation("io.vavr:vavr:${vavrVersion}")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
+    testImplementation("org.hamcrest:hamcrest:${hamcrestVersion}")
+}
+
+jar {
+    archiveBaseName.set('jqwik-vavr')
+    archiveVersion.set("${jqwikVavrVersion}")
+    manifest {
+        attributes('Automatic-Module-Name': "${moduleName}")
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+compileTestJava {
+    options.compilerArgs += '-parameters'
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'jqwik'
+    }
+
+    // testLogging.showStandardStreams = true
+}
+
+publishing {
+    repositories {
+        maven {
+            // hint: password is in ~/.gradle/gradle.properties
+            def ossrhUsername = project.hasProperty('ossrhUsername') ? project.ossrhUsername : ''
+            def ossrhPassword = project.hasProperty('ossrhPassword') ? project.ossrhPassword : ''
+
+            credentials {
+                username = ossrhUsername
+                password = ossrhPassword
+            }
+
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = isSnapshotRelease ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
+    publications {
+        jqwikSpring(MavenPublication) {
+            groupId = 'net.jqwik'
+            artifactId = 'jqwik-vavr'
+            from components.java
+            pom {
+                groupId = 'net.jqwik'
+                name = 'jqwik-vavr'
+                description = "Jqwik Vavr support module"
+                url = 'https://github.com/Befrish/jqwik-vavr'
+                licenses {
+                    license {
+                        name = 'Eclipse Public License - v 2.0'
+                        url = 'http://www.eclipse.org/legal/epl-v20.html'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'Befrish'
+                        name = 'Benno Müller'
+                        email = 'info@befrish.de'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/Befrish/jqwik-vavr.git'
+                    developerConnection = 'scm:git:git://github.com/Befrish/jqwik-vavr.git'
+                    url = 'https://github.com/Befrish/jqwik-vavr'
+                }
+            }
+        }
+    }
+}
+
+signing {
+    if (!isSnapshotRelease) {
+        sign publishing.publications.jqwikSpring
+    }
+}
+
+wrapper {
+    gradleVersion = '7.4.2'
+    // upgrade with: ./gradlew wrapper --gradle-version 7.4.2
+}

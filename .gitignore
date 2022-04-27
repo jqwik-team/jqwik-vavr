@@ -10,6 +10,10 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+# Gradle
+build/
+.gradle
+
 # Eclipse project files
 .project
 .settings

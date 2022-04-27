@@ -1,0 +1,7 @@
+<FindBugsFilter>
+    <Match>
+        <!-- False positive for net.jqwik.api.Arbitrary -->
+        <Bug pattern="EI_EXPOSE_REP2" />
+        <!-- EI_EXPOSE_REP2: May expose internal representation by incorporating reference to mutable object -->
+    </Match>
+</FindBugsFilter>

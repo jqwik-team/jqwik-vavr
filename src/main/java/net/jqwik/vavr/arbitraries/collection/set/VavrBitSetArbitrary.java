@@ -31,19 +31,19 @@ public class VavrBitSetArbitrary<T> extends SetBasedArbitrary<T, BitSet<T>> {
             } else if (Long.class.isAssignableFrom(elementClass)) {
                 final Set<Long> javaSet1 = (Set<Long>) javaSet;
                 return BitSet.withLongs().ofAll(javaSet1);
-            } else if (Boolean.class.isAssignableFrom(elementClass)) {
-                final Set<Boolean> javaSet1 = (Set<Boolean>) javaSet;
-                // see io.vavr.collection.BitSet.ofAll(boolean...)
-                return BitSet.withRelations(i -> i != 0, b -> b ? 1 : 0).ofAll(javaSet1);
+//            } else if (Boolean.class.isAssignableFrom(elementClass)) { // TODO Läuft ewig
+//                final Set<Boolean> javaSet1 = (Set<Boolean>) javaSet;
+//                // see io.vavr.collection.BitSet.ofAll(boolean...)
+//                return BitSet.withRelations(i -> i != 0, b -> b ? 1 : 0).ofAll(javaSet1);
             } else if (Byte.class.isAssignableFrom(elementClass)) {
                 final Set<Byte> javaSet1 = (Set<Byte>) javaSet;
                 return BitSet.withBytes().ofAll(javaSet1);
             } else if (Character.class.isAssignableFrom(elementClass)) {
                 final Set<Character> javaSet1 = (Set<Character>) javaSet;
                 return BitSet.withCharacters().ofAll(javaSet1);
-            } else if (Enum.class.isAssignableFrom(elementClass)) {
-                final Set<Enum> javaSet1 = (Set<Enum>) javaSet;
-                return BitSet.withEnum((Class<Enum>) elementClass).ofAll(javaSet1);
+//            } else if (Enum.class.isAssignableFrom(elementClass)) { // TODO Läuft ewig
+//                final Set<Enum> javaSet1 = (Set<Enum>) javaSet;
+//                return BitSet.withEnum((Class<Enum>) elementClass).ofAll(javaSet1);
             } else {
                 throw new IllegalArgumentException("element class [" + elementClass.getName() + "] not supported for "
                         + BitSet.class.getName());

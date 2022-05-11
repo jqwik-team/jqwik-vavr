@@ -21,7 +21,7 @@ Adds [jqwik](https://jqwik.net/) arbitraries for [Vavr](https://www.vavr.io/vavr
 - `io.vavr.collection.LinkedHashSet`
 - `io.vavr.collection.SortedSet`
 - `io.vavr.collection.TreeSet`
-- `io.vavr.collection.BitSet`
+- `io.vavr.collection.BitSet` (in the future)
 - `io.vavr.collection.Tree`
 - `io.vavr.collection.Map`
 - `io.vavr.collection.HashMap`

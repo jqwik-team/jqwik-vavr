@@ -14,7 +14,6 @@ net.jqwik.vavr.providers.collection.seq.VavrArrayArbitraryProvider
 net.jqwik.vavr.providers.collection.seq.VavrCharSeqArbitraryProvider
 net.jqwik.vavr.providers.collection.seq.VavrListArbitraryProvider
 net.jqwik.vavr.providers.collection.seq.VavrVectorArbitraryProvider
-net.jqwik.vavr.providers.collection.set.VavrBitSetArbitraryProvider
 net.jqwik.vavr.providers.collection.set.VavrHashSetArbitraryProvider
 net.jqwik.vavr.providers.collection.set.VavrLinkedHashSetArbitraryProvider
 net.jqwik.vavr.providers.collection.set.VavrTreeSetArbitraryProvider

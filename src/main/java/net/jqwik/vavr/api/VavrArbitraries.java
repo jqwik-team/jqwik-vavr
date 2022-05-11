@@ -162,10 +162,10 @@ public final class VavrArbitraries {
         return new VavrTreeSetArbitrary<>(elementArbitrary, comparator);
     }
 
-    public static <T extends Comparable<T>> StreamableArbitrary<T, BitSet<T>> bitSet(
-            final Arbitrary<T> elementArbitrary) {
-        return new VavrBitSetArbitrary<>(elementArbitrary);
-    }
+//    public static <T extends Comparable<T>> StreamableArbitrary<T, BitSet<T>> bitSet(
+//            final Arbitrary<T> elementArbitrary) {
+//        return new VavrBitSetArbitrary<>(elementArbitrary);
+//    }
 
     public static <T> StreamableArbitrary<T, Tree<T>> tree(final Arbitrary<T> elementArbitrary) {
         return new VavrTreeArbitrary<>(elementArbitrary);

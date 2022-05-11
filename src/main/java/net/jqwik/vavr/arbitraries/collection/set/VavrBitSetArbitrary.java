@@ -7,6 +7,8 @@ import net.jqwik.api.Arbitrary;
 import java.util.Set;
 
 /**
+ * TODO  net.jqwik.api.providers.ArbitraryProvider -> add line net.jqwik.vavr.providers.collection.set.VavrBitSetArbitraryProvider
+ *
  * @author Benno Müller
  */
 public class VavrBitSetArbitrary<T> extends SetBasedArbitrary<T, BitSet<T>> {

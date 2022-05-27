@@ -75,7 +75,7 @@ void generateSizableListFrom(@ForAll @From("integersMin3") final io.vavr.collect
 
 ```xml
 <dependency>
-  <groupId>net.jqwik.vavr</groupId>
+  <groupId>net.jqwik</groupId>
   <artifactId>jqwik-vavr</artifactId>
   <version>LATEST</version>
 </dependency>

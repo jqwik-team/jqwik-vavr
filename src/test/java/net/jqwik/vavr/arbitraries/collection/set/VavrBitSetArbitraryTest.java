@@ -1,34 +1,6 @@
 package net.jqwik.vavr.arbitraries.collection.set;
 
-import net.jqwik.vavr.api.VavrArbitraries;
-import io.vavr.collection.BitSet;
-import net.jqwik.api.Arbitraries;
-import net.jqwik.api.Arbitrary;
-import net.jqwik.api.EdgeCasesMode;
-import net.jqwik.api.ForAll;
-import net.jqwik.api.From;
-import net.jqwik.api.GenerationMode;
-import net.jqwik.api.Property;
-import net.jqwik.api.PropertyDefaults;
-import net.jqwik.api.Provide;
-import net.jqwik.api.ShrinkingMode;
-import net.jqwik.api.constraints.ByteRange;
-import net.jqwik.api.constraints.IntRange;
-import net.jqwik.api.constraints.NotEmpty;
-import net.jqwik.api.constraints.Positive;
-import net.jqwik.api.constraints.ShortRange;
-import net.jqwik.api.constraints.Size;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.emptyIterable;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-@PropertyDefaults(tries = 50)
+//@PropertyDefaults(tries = 50)
 class VavrBitSetArbitraryTest {
 
 

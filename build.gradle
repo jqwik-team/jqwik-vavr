@@ -124,7 +124,7 @@ publishing {
 
 signing {
     if (!isSnapshotRelease) {
-        sign publishing.publications.jqwikSpring
+        sign publishing.publications.jqwikVavr
     }
 }
 

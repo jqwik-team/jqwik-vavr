@@ -81,22 +81,16 @@ void generateSizableListFrom(@ForAll @From("integersMin3") final io.vavr.collect
 </dependency>
 ```
 
-## Installation with Maven (Version < 2.0.0)
+## Installation with Gradle
 
-```xml
-<repositories>
-  <repository>
-    <id>jqwik-vavr</id>
-    <name>jqwik Vavr Packages</name>
-    <url>https://repo.repsy.io/mvn/befrish/jqwik-vavr</url>
-  </repository>
-</repositories>
+```groovy
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+  ...  
+  testImplementation("net.jqwik:jqwik-vavr:2.0.0")
+}
 ```
 
-```xml
-<dependency>
-  <groupId>de.befrish.jqwik</groupId>
-  <artifactId>jqwik-vavr</artifactId>
-  <version>LATEST</version>
-</dependency>
-```

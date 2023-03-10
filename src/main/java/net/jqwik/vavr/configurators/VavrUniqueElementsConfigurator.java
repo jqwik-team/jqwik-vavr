@@ -1,8 +1,8 @@
 package net.jqwik.vavr.configurators;
 
-import java.util.function.*;
+import java.util.function.Function;
 
-import io.vavr.collection.*;
+import io.vavr.collection.Traversable;
 
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.configurators.ArbitraryConfigurator;

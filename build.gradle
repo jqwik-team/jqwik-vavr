@@ -16,10 +16,9 @@ static isSnapshotRelease(versionString) {
 
 ext {
     moduleName = 'net.jqwik.vavr'
-    jqwikVavrVersion = '2.0.0'
+    jqwikVavrVersion = '2.1.0-SNAPSHOT'
     jqwikVersion = '1.6.5'
     vavrVersion = '0.10.4'
-    junitJupiterVersion = '5.8.2'
     hamcrestVersion = '2.2'
     isSnapshotRelease = isSnapshotRelease(jqwikVavrVersion)
 }
@@ -39,7 +38,6 @@ dependencies {
     implementation("net.jqwik:jqwik-engine:${jqwikVersion}")
     implementation("io.vavr:vavr:${vavrVersion}")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
     testImplementation("org.hamcrest:hamcrest:${hamcrestVersion}")
 }
 

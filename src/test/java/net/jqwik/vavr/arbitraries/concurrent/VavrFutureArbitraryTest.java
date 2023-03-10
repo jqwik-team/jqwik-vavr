@@ -18,7 +18,6 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.notNullValue;
 
 class VavrFutureArbitraryTest extends ArbitraryTestBase<Future<Integer>> {
 
@@ -40,7 +39,7 @@ class VavrFutureArbitraryTest extends ArbitraryTestBase<Future<Integer>> {
     }
 
     @Property
-    void generateWithValueContraints(@ForAll final Future<@IntRange(min = 3, max = 42) Integer> future) {
+    void generateWithValueConstraints(@ForAll final Future<@IntRange(min = 3, max = 42) Integer> future) {
         if (future.isSuccess()) {
             assertThat(future.get(), is(greaterThanOrEqualTo(3)));
             assertThat(future.get(), is(lessThanOrEqualTo(42)));

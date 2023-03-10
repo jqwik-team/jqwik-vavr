@@ -14,12 +14,10 @@ import net.jqwik.api.constraints.IntRange;
 import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.notNullValue;
 
 class VavrTryArbitraryTest extends ArbitraryTestBase<Try<Integer>> {
 
@@ -40,7 +38,7 @@ class VavrTryArbitraryTest extends ArbitraryTestBase<Try<Integer>> {
     }
 
     @Property
-    void generateWithValueContraints(@ForAll final Try<@IntRange(min = 3, max = 42) Integer> try_) {
+    void generateWithValueConstraints(@ForAll final Try<@IntRange(min = 3, max = 42) Integer> try_) {
         if (try_.isSuccess()) {
             assertThat(try_.get(), is(greaterThanOrEqualTo(3)));
             assertThat(try_.get(), is(lessThanOrEqualTo(42)));

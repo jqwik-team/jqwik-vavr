@@ -2,13 +2,9 @@ package net.jqwik.vavr.arbitraries.base;
 
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
-import net.jqwik.api.EdgeCases;
-import net.jqwik.api.RandomGenerator;
-import net.jqwik.engine.properties.arbitraries.EdgeCasesSupport;
+import net.jqwik.api.arbitraries.ArbitraryDecorator;
 
-import java.util.Arrays;
-
-public abstract class DoubleValueArbitrary<T1, T2, U> implements Arbitrary<U> {
+public abstract class DoubleValueArbitrary<T1, T2, U> extends ArbitraryDecorator<U> implements Arbitrary<U> {
 
     private final Arbitrary<T1> firstArbitrary;
     private final Arbitrary<T2> secondArbitrary;
@@ -22,23 +18,14 @@ public abstract class DoubleValueArbitrary<T1, T2, U> implements Arbitrary<U> {
     protected abstract U mapSecondValue(T2 value);
 
     @Override
-    public RandomGenerator<U> generator(final int genSize) {
-        return Arbitraries.of(true, false)
-                .generator(genSize)
-                .flatMap(this::getMappedArbitrary, genSize, false);
+    protected Arbitrary<U> arbitrary() {
+        return Arbitraries.of(true, false).flatMap(this::getMappedArbitrary);
     }
 
     private Arbitrary<U> getMappedArbitrary(final Boolean firstValue) {
         return firstValue
                 ? this.firstArbitrary.map(this::mapFirstValue)
                 : this.secondArbitrary.map(this::mapSecondValue);
-    }
-
-    @Override
-    public EdgeCases<U> edgeCases(final int maxEdgeCases) {
-        final EdgeCases<U> firstEdgeCases = EdgeCasesSupport.map(this.firstArbitrary.edgeCases(), this::mapFirstValue);
-        final EdgeCases<U> secondEdgeCases = EdgeCasesSupport.map(this.secondArbitrary.edgeCases(), this::mapSecondValue);
-        return EdgeCasesSupport.concat(Arrays.asList(firstEdgeCases, secondEdgeCases), maxEdgeCases);
     }
 
 }

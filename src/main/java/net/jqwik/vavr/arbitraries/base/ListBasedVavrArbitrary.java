@@ -2,59 +2,72 @@ package net.jqwik.vavr.arbitraries.base;
 
 import io.vavr.collection.Traversable;
 import net.jqwik.api.Arbitrary;
-import net.jqwik.api.EdgeCases;
-import net.jqwik.api.ExhaustiveGenerator;
-import net.jqwik.api.RandomGenerator;
-import net.jqwik.engine.properties.arbitraries.EdgeCasesSupport;
-import net.jqwik.engine.properties.arbitraries.exhaustive.ExhaustiveGenerators;
-import net.jqwik.engine.properties.shrinking.ShrinkableList;
+import net.jqwik.api.arbitraries.StreamableArbitrary;
+import net.jqwik.api.arbitraries.ArbitraryDecorator;
+import net.jqwik.api.arbitraries.ListArbitrary;
+import net.jqwik.api.RandomDistribution;
 
-import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
-public abstract class ListBasedVavrArbitrary<T, U extends Traversable<T>> extends MultivalueArbitrary<T, U> {
+public abstract class ListBasedVavrArbitrary<T, U extends Traversable<T>> extends ArbitraryDecorator<U>
+		implements StreamableArbitrary<T,U> {
+
+	private ListArbitrary<T> listArbitrary;
 
 	public ListBasedVavrArbitrary(final Arbitrary<T> elementArbitrary) {
-		super(elementArbitrary);
+		this.listArbitrary = elementArbitrary.list();
 	}
 
 	protected abstract U convertJavaListToVavrCollection(java.util.List<T> javaList);
 
 	@Override
+	protected Arbitrary<U> arbitrary() {
+		return listArbitrary.map(this::convertJavaListToVavrCollection);
+	}
+
+	@Override
+	public StreamableArbitrary<T, U> ofMinSize(final int minSize) {
+		final ListBasedVavrArbitrary<T, U> clone = typedClone();
+		clone.listArbitrary = listArbitrary.ofMinSize(minSize);
+		return clone;
+	}
+
+	@Override
+	public StreamableArbitrary<T, U> ofMaxSize(final int maxSize) {
+		final ListBasedVavrArbitrary<T, U> clone = typedClone();
+		clone.listArbitrary = listArbitrary.ofMaxSize(maxSize);
+		return clone;
+	}
+
+	@Override
+	public StreamableArbitrary<T, U> withSizeDistribution(final RandomDistribution distribution) {
+		final ListBasedVavrArbitrary<T, U> clone = typedClone();
+		clone.listArbitrary = listArbitrary.withSizeDistribution(distribution);
+		return clone;
+	}
+
+	@Override
+	public <R> Arbitrary<R> reduce(final R initial, final BiFunction<R, T, R> accumulator) {
+		return this.map(streamable -> {
+			// Couldn't find a way to use Stream.reduce since it requires a combinator
+			@SuppressWarnings("unchecked") final R[] result = (R[]) new Object[]{initial};
+			final Iterable<T> iterable = toIterable(streamable);
+			for (final T each : iterable) {
+				result[0] = accumulator.apply(result[0], each);
+			}
+			return result[0];
+		});
+	}
+
+	public ListBasedVavrArbitrary<T, U> uniqueElements(final Function<T, Object> by) {
+		final ListBasedVavrArbitrary<T, U> clone = typedClone();
+		clone.listArbitrary = listArbitrary.uniqueElements(by);
+		return clone;
+	}
+
 	protected Iterable<T> toIterable(final U streamable) {
 		return streamable;
-	}
-
-	@Override
-	public RandomGenerator<U> generator(final int genSize) {
-		return createListGenerator(genSize, false)
-				.map(this::convertJavaListToVavrCollection);
-	}
-
-	@Override
-	public RandomGenerator<U> generatorWithEmbeddedEdgeCases(final int genSize) {
-		return createListGenerator(genSize, true)
-				.map(this::convertJavaListToVavrCollection);
-	}
-
-	@Override
-	public Optional<ExhaustiveGenerator<U>> exhaustive(final long maxNumberOfSamples) {
-		return ExhaustiveGenerators.list(
-				this.elementArbitrary,
-				this.minSize,
-				this.maxSize,
-				this.uniquenessExtractors,
-				maxNumberOfSamples
-		).map(exhaustiveGenerator -> exhaustiveGenerator.map(this::convertJavaListToVavrCollection));
-	}
-
-	@Override
-	public EdgeCases<U> edgeCases(final int maxEdgeCases) {
-		return EdgeCasesSupport.map(
-				edgeCases((elements, minSize1) ->
-						new ShrinkableList<>(elements, minSize1, this.maxSize, this.uniquenessExtractors),
-						maxEdgeCases),
-				this::convertJavaListToVavrCollection
-		);
 	}
 
 }

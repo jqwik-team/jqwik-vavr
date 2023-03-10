@@ -18,6 +18,7 @@ ext {
     moduleName = 'net.jqwik.vavr'
     jqwikVavrVersion = '2.1.0-SNAPSHOT'
     jqwikVersion = '1.6.5'
+    junitPlatformVersion = '1.8.2'
     vavrVersion = '0.10.4'
     hamcrestVersion = '2.2'
     isSnapshotRelease = isSnapshotRelease(jqwikVavrVersion)
@@ -39,6 +40,9 @@ dependencies {
     implementation("io.vavr:vavr:${vavrVersion}")
 
     testImplementation("org.hamcrest:hamcrest:${hamcrestVersion}")
+
+    // Only needed to work around intelliJ bug with running tests in package
+    testImplementation("org.junit.platform:junit-platform-launcher:${junitPlatformVersion}")
 }
 
 jar {

@@ -2,13 +2,12 @@ package net.jqwik.vavr.providers.base;
 
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.providers.TypeUsage;
-import net.jqwik.engine.providers.HashMapArbitraryProvider;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @see HashMapArbitraryProvider
+ * @see net.jqwik.engine.providers.HashMapArbitraryProvider
  *
  * @author Benno Müller
  */

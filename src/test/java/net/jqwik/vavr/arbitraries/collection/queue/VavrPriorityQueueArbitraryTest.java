@@ -17,7 +17,7 @@ class VavrPriorityQueueArbitraryTest extends VavrTraversableArbitraryTestBase<
         PriorityQueue<Boolean>> {
 
     @Override
-    protected StreamableArbitrary<Integer, ? extends PriorityQueue<Integer>> createCollectionArbtitrary(
+    protected StreamableArbitrary<Integer, ? extends PriorityQueue<Integer>> createCollectionArbitrary(
             final Arbitrary<Integer> elementArbitrary) {
         return VavrArbitraries.priorityQueue(elementArbitrary);
     }

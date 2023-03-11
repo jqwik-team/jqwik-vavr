@@ -10,12 +10,11 @@ import net.jqwik.api.arbitraries.StreamableArbitrary;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 
 class VavrSetArbitraryTest extends VavrTraversableArbitraryTestBase<Set<Integer>, Set<Boolean>> {
 
     @Override
-    protected StreamableArbitrary<Integer, ? extends Set<Integer>> createCollectionArbtitrary(
+    protected StreamableArbitrary<Integer, ? extends Set<Integer>> createCollectionArbitrary(
             final Arbitrary<Integer> elementArbitrary) {
         return VavrArbitraries.set(elementArbitrary);
     }

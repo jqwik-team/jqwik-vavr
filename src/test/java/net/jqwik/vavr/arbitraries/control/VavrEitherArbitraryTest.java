@@ -17,7 +17,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.notNullValue;
 
 class VavrEitherArbitraryTest extends ArbitraryTestBase<Either<String, Integer>> {
 
@@ -38,7 +37,7 @@ class VavrEitherArbitraryTest extends ArbitraryTestBase<Either<String, Integer>>
     }
 
     @Property
-    void generateWithValueContraints(@ForAll final Either<@CharRange(from = 'a', to = 'a') String, @IntRange(min = 3, max = 42) Integer> either) {
+    void generateWithValueConstraints(@ForAll final Either<@CharRange(from = 'a', to = 'a') String, @IntRange(min = 3, max = 42) Integer> either) {
         if (either.isLeft()) {
             assertThat(either.getLeft(), is(hasOnlyAs()));
         } else {

@@ -17,7 +17,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.notNullValue;
 
 class VavrValidationArbitraryTest extends ArbitraryTestBase<Validation<String, Integer>> {
 
@@ -38,7 +37,7 @@ class VavrValidationArbitraryTest extends ArbitraryTestBase<Validation<String, I
     }
 
     @Property
-    void generateWithValueContraints(@ForAll final Validation<@CharRange(from = 'a', to = 'a') String, @IntRange(min = 3, max = 42) Integer> validation) {
+    void generateWithValueConstraints(@ForAll final Validation<@CharRange(from = 'a', to = 'a') String, @IntRange(min = 3, max = 42) Integer> validation) {
         if (validation.isValid()) {
             assertThat(validation.get(), is(greaterThanOrEqualTo(3)));
             assertThat(validation.get(), is(lessThanOrEqualTo(42)));

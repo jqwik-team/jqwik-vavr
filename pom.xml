@@ -6,7 +6,7 @@
 
     <groupId>net.jqwik</groupId>
     <artifactId>jqwik-vavr</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <url>https://github.com/Befrish/jqwik-vavr</url>
@@ -43,7 +43,6 @@
         <jqwik.version>1.6.5</jqwik.version>
         <vavr.version>0.10.4</vavr.version>
 
-        <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <hamcrest.version>2.2</hamcrest.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -51,7 +50,7 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 
         <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
-        <spotbugs-maven-plugin.version>4.6.0.0</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.7.3.2</spotbugs-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <checkstyle.version>8.45.1</checkstyle.version>
     </properties>
@@ -65,23 +64,18 @@
 
         <dependency>
             <groupId>net.jqwik</groupId>
-            <artifactId>jqwik</artifactId>
+            <artifactId>jqwik-api</artifactId>
             <version>${jqwik.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.jqwik</groupId>
-            <artifactId>jqwik-engine</artifactId>
-            <version>${jqwik.version}</version>
-            <scope>compile</scope>
         </dependency>
 
         <!-- Test -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit-jupiter.version}</version>
+            <groupId>net.jqwik</groupId>
+            <artifactId>jqwik-engine</artifactId>
+            <version>${jqwik.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>

@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.is;
 class VavrArrayArbitraryTest extends VavrTraversableArbitraryTestBase<Array<Integer>, Array<Boolean>> {
 
     @Override
-    protected StreamableArbitrary<Integer, ? extends Array<Integer>> createCollectionArbtitrary(
+    protected StreamableArbitrary<Integer, ? extends Array<Integer>> createCollectionArbitrary(
             final Arbitrary<Integer> elementArbitrary) {
         return VavrArbitraries.array(elementArbitrary);
     }

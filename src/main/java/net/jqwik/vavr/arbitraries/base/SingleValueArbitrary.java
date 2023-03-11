@@ -1,18 +1,16 @@
 package net.jqwik.vavr.arbitraries.base;
 
 import net.jqwik.api.Arbitrary;
-import net.jqwik.api.EdgeCases;
-import net.jqwik.api.RandomGenerator;
 import net.jqwik.api.Tuple;
+import net.jqwik.api.arbitraries.ArbitraryDecorator;
 import net.jqwik.api.configurators.ArbitraryConfigurator;
 import net.jqwik.api.configurators.SelfConfiguringArbitrary;
 import net.jqwik.api.providers.TypeUsage;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public abstract class SingleValueArbitrary<T, U> implements Arbitrary<U>, SelfConfiguringArbitrary<U> {
+public abstract class SingleValueArbitrary<T, U> extends ArbitraryDecorator<U> implements Arbitrary<U>, SelfConfiguringArbitrary<U> {
 
     private final Arbitrary<T> innerArbitrary;
     private final List<Tuple.Tuple2<ArbitraryConfigurator, TypeUsage>> configurations = new ArrayList<>();
@@ -25,21 +23,9 @@ public abstract class SingleValueArbitrary<T, U> implements Arbitrary<U>, SelfCo
     protected abstract U mapValue(T value);
 
     @Override
-    public RandomGenerator<U> generator(final int genSize) {
-        return getConfiguredInnerArbitrary().generator(genSize).map(this::mapValue);
+    protected Arbitrary<U> arbitrary() {
+        return getConfiguredInnerArbitrary().map(this::mapValue);
     }
-
-    @Override
-    public RandomGenerator<U> generatorWithEmbeddedEdgeCases(final int genSize) {
-        return getConfiguredInnerArbitrary().generator(genSize, true).map(this::mapValue);
-    }
-
-    @Override
-    public EdgeCases<U> edgeCases(final int maxEdgeCases) {
-        return edgeCases(getConfiguredInnerArbitrary(), maxEdgeCases);
-    }
-
-    protected abstract EdgeCases<U> edgeCases(Arbitrary<T> innerArbitrary, int maxEdgeCases);
 
     @Override
     public Arbitrary<U> configure(final ArbitraryConfigurator configurator, final TypeUsage targetType) {

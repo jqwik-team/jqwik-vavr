@@ -10,6 +10,9 @@ import net.jqwik.api.constraints.UniqueElements;
 import net.jqwik.api.providers.TypeUsage;
 import net.jqwik.vavr.arbitraries.base.ListBasedVavrArbitrary;
 
+// TODO: Should be redundant as soon as jqwik provides an interface for
+//  arbitraries that can have unique values.
+//  See https://github.com/jqwik-team/jqwik/issues/466
 public class VavrUniqueElementsConfigurator implements ArbitraryConfigurator {
 
 	@SuppressWarnings("unchecked")

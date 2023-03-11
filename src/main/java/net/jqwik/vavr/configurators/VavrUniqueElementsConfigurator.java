@@ -9,7 +9,7 @@ import net.jqwik.api.Arbitrary;
 import net.jqwik.api.configurators.ArbitraryConfigurator;
 import net.jqwik.api.constraints.UniqueElements;
 import net.jqwik.api.providers.TypeUsage;
-import net.jqwik.vavr.arbitraries.base.ListBasedVavrArbitrary;
+import net.jqwik.vavr.arbitraries.base.ListBasedArbitrary;
 import net.jqwik.vavr.arbitraries.base.SetBasedArbitrary;
 
 // TODO: Should be redundant as soon as jqwik provides an interface for
@@ -21,8 +21,8 @@ public class VavrUniqueElementsConfigurator implements ArbitraryConfigurator {
 	@Override
 	public <T> Arbitrary<T> configure(Arbitrary<T> arbitrary, TypeUsage targetType) {
 		return targetType.findAnnotation(UniqueElements.class).map(uniqueness -> {
-			if (arbitrary instanceof ListBasedVavrArbitrary) {
-				return (Arbitrary<T>) configureListArbitrary((ListBasedVavrArbitrary<?, ?>) arbitrary, uniqueness);
+			if (arbitrary instanceof ListBasedArbitrary) {
+				return (Arbitrary<T>) configureListArbitrary((ListBasedArbitrary<?, ?>) arbitrary, uniqueness);
 			}
 			if (arbitrary instanceof SetBasedArbitrary) {
 				return (Arbitrary<T>) configureSetArbitrary((SetBasedArbitrary<?, ?>) arbitrary, uniqueness);
@@ -38,7 +38,7 @@ public class VavrUniqueElementsConfigurator implements ArbitraryConfigurator {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T, U extends Traversable<T>> Arbitrary<U> configureListArbitrary(ListBasedVavrArbitrary<T, U> arbitrary, UniqueElements uniqueness) {
+	private <T, U extends Traversable<T>> Arbitrary<U> configureListArbitrary(ListBasedArbitrary<T, U> arbitrary, UniqueElements uniqueness) {
 		Function<T, Object> extractor = (Function<T, Object>) extractor(uniqueness);
 		return arbitrary.uniqueElements(extractor);
 	}

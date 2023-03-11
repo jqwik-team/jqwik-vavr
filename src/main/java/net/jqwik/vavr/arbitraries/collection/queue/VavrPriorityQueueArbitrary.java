@@ -1,13 +1,13 @@
 package net.jqwik.vavr.arbitraries.collection.queue;
 
 import net.jqwik.vavr.NaturalComparator;
-import net.jqwik.vavr.arbitraries.base.ListBasedVavrArbitrary;
+import net.jqwik.vavr.arbitraries.base.ListBasedArbitrary;
 import io.vavr.collection.PriorityQueue;
 import net.jqwik.api.Arbitrary;
 
 import java.util.Comparator;
 
-public class VavrPriorityQueueArbitrary<T> extends ListBasedVavrArbitrary<T, PriorityQueue<T>> {
+public class VavrPriorityQueueArbitrary<T> extends ListBasedArbitrary<T, PriorityQueue<T>> {
 
 	private final Comparator<T> comparator;
 

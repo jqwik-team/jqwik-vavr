@@ -10,12 +10,12 @@ import net.jqwik.api.RandomDistribution;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public abstract class ListBasedVavrArbitrary<T, U extends Traversable<T>> extends ArbitraryDecorator<U>
+public abstract class ListBasedArbitrary<T, U extends Traversable<T>> extends ArbitraryDecorator<U>
 		implements StreamableArbitrary<T,U> {
 
 	private ListArbitrary<T> listArbitrary;
 
-	public ListBasedVavrArbitrary(final Arbitrary<T> elementArbitrary) {
+	public ListBasedArbitrary(final Arbitrary<T> elementArbitrary) {
 		this.listArbitrary = elementArbitrary.list();
 	}
 
@@ -27,22 +27,22 @@ public abstract class ListBasedVavrArbitrary<T, U extends Traversable<T>> extend
 	}
 
 	@Override
-	public ListBasedVavrArbitrary<T, U> ofMinSize(final int minSize) {
-		final ListBasedVavrArbitrary<T, U> clone = typedClone();
+	public ListBasedArbitrary<T, U> ofMinSize(final int minSize) {
+		final ListBasedArbitrary<T, U> clone = typedClone();
 		clone.listArbitrary = listArbitrary.ofMinSize(minSize);
 		return clone;
 	}
 
 	@Override
-	public ListBasedVavrArbitrary<T, U> ofMaxSize(final int maxSize) {
-		final ListBasedVavrArbitrary<T, U> clone = typedClone();
+	public ListBasedArbitrary<T, U> ofMaxSize(final int maxSize) {
+		final ListBasedArbitrary<T, U> clone = typedClone();
 		clone.listArbitrary = listArbitrary.ofMaxSize(maxSize);
 		return clone;
 	}
 
 	@Override
-	public ListBasedVavrArbitrary<T, U> withSizeDistribution(final RandomDistribution distribution) {
-		final ListBasedVavrArbitrary<T, U> clone = typedClone();
+	public ListBasedArbitrary<T, U> withSizeDistribution(final RandomDistribution distribution) {
+		final ListBasedArbitrary<T, U> clone = typedClone();
 		clone.listArbitrary = listArbitrary.withSizeDistribution(distribution);
 		return clone;
 	}
@@ -52,8 +52,8 @@ public abstract class ListBasedVavrArbitrary<T, U extends Traversable<T>> extend
 		return listArbitrary.reduce(initial, accumulator);
 	}
 
-	public ListBasedVavrArbitrary<T, U> uniqueElements(final Function<T, Object> by) {
-		final ListBasedVavrArbitrary<T, U> clone = typedClone();
+	public ListBasedArbitrary<T, U> uniqueElements(final Function<T, Object> by) {
+		final ListBasedArbitrary<T, U> clone = typedClone();
 		clone.listArbitrary = listArbitrary.uniqueElements(by);
 		return clone;
 	}

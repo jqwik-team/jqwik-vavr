@@ -3,13 +3,11 @@ package net.jqwik.vavr.arbitraries.base;
 import io.vavr.collection.Traversable;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
-import net.jqwik.api.EdgeCasesMode;
 import net.jqwik.api.ForAll;
 import net.jqwik.api.From;
 import net.jqwik.api.GenerationMode;
 import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
-import net.jqwik.api.ShrinkingMode;
 import net.jqwik.api.arbitraries.StreamableArbitrary;
 import net.jqwik.api.constraints.NotEmpty;
 import net.jqwik.api.constraints.Size;
@@ -20,7 +18,6 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
 
 public abstract class VavrTraversableArbitraryTestBase<
         UI extends Traversable<Integer>,
@@ -70,5 +67,18 @@ public abstract class VavrTraversableArbitraryTestBase<
     void generateNonEmpty(@ForAll @NotEmpty final UI u) {
         assertThat(u, is(not(emptyIterable())));
     }
+
+	@Property(tries = 10)
+	void reduce(@ForAll("summedUpStreamable") int sum) {
+		assertThat(sum, greaterThanOrEqualTo(1));
+		assertThat(sum, lessThanOrEqualTo(50));
+	}
+
+	@Provide
+	Arbitrary<Integer> summedUpStreamable() {
+		StreamableArbitrary<Integer, ?> listArbitrary =
+			createCollectionArbtitrary(Arbitraries.integers().between(1, 5)).ofMinSize(1).ofMaxSize(10);
+		return listArbitrary.reduce(0, Integer::sum);
+	}
 
 }

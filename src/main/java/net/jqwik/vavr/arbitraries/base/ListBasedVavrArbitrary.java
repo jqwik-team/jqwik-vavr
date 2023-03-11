@@ -49,25 +49,13 @@ public abstract class ListBasedVavrArbitrary<T, U extends Traversable<T>> extend
 
 	@Override
 	public <R> Arbitrary<R> reduce(final R initial, final BiFunction<R, T, R> accumulator) {
-		return this.map(streamable -> {
-			// Couldn't find a way to use Stream.reduce since it requires a combinator
-			@SuppressWarnings("unchecked") final R[] result = (R[]) new Object[]{initial};
-			final Iterable<T> iterable = toIterable(streamable);
-			for (final T each : iterable) {
-				result[0] = accumulator.apply(result[0], each);
-			}
-			return result[0];
-		});
+		return listArbitrary.reduce(initial, accumulator);
 	}
 
 	public ListBasedVavrArbitrary<T, U> uniqueElements(final Function<T, Object> by) {
 		final ListBasedVavrArbitrary<T, U> clone = typedClone();
 		clone.listArbitrary = listArbitrary.uniqueElements(by);
 		return clone;
-	}
-
-	protected Iterable<T> toIterable(final U streamable) {
-		return streamable;
 	}
 
 }

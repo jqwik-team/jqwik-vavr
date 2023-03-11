@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @see net.jqwik.engine.providers.HashMapArbitraryProvider
+ * In analogy to jqwik's implementation of net.jqwik.engine.providers.HashMapArbitraryProvider
  *
  * @author Benno Müller
  */

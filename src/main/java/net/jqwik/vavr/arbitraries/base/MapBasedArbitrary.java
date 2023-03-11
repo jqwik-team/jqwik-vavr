@@ -1,18 +1,14 @@
 package net.jqwik.vavr.arbitraries.base;
 
 import io.vavr.Tuple2;
-import io.vavr.collection.List;
 import io.vavr.collection.Traversable;
+
 import net.jqwik.api.Arbitrary;
+import net.jqwik.api.Arbitraries;
 import net.jqwik.api.RandomDistribution;
 import net.jqwik.api.arbitraries.ArbitraryDecorator;
-import net.jqwik.engine.properties.arbitraries.DefaultMapArbitrary;
 import net.jqwik.vavr.api.arbitraries.MapArbitrary;
-import net.jqwik.engine.properties.FeatureExtractor;
-import net.jqwik.engine.properties.arbitraries.randomized.RandomGenerators;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -26,72 +22,58 @@ public abstract class MapBasedArbitrary<K, V, U extends Traversable<Tuple2<K, V>
 		extends ArbitraryDecorator<U>
 		implements MapArbitrary<K, V, U> {
 
-	private final Arbitrary<K> keysArbitrary;
-	private final Arbitrary<V> valuesArbitrary;
-
-	private int minSize = 0;
-	private int maxSize = RandomGenerators.DEFAULT_COLLECTION_SIZE;
-//	private RandomDistribution sizeDistribution = null;
-
-	private Set<FeatureExtractor<K>> keyUniquenessExtractors = new HashSet<>();
-	private Set<FeatureExtractor<V>> valueUniquenessExtractors = new HashSet<>();
+	private net.jqwik.api.arbitraries.MapArbitrary<K, V> javaMapArbitrary;
 
 	public MapBasedArbitrary(final Arbitrary<K> keysArbitrary, final Arbitrary<V> valuesArbitrary) {
-		this.keysArbitrary = keysArbitrary;
-		this.valuesArbitrary = valuesArbitrary;
+		this.javaMapArbitrary = Arbitraries.maps(keysArbitrary, valuesArbitrary);
 	}
 
 	@Override
 	public MapArbitrary<K, V, U> ofMinSize(final int minSize) {
 		final MapBasedArbitrary<K, V, U> clone = typedClone();
-		clone.minSize = minSize;
+		clone.javaMapArbitrary = javaMapArbitrary.ofMinSize(minSize);
 		return clone;
 	}
 
 	@Override
 	public MapArbitrary<K, V, U> ofMaxSize(final int maxSize) {
 		final MapBasedArbitrary<K, V, U> clone = typedClone();
-		clone.maxSize = maxSize;
+		clone.javaMapArbitrary = javaMapArbitrary.ofMaxSize(maxSize);
 		return clone;
 	}
 
 	@Override
 	public MapArbitrary<K, V, U> withSizeDistribution(final RandomDistribution distribution) {
 		final MapBasedArbitrary<K, V, U> clone = typedClone();
-//		clone.sizeDistribution = distribution; // TODO
+		clone.javaMapArbitrary = javaMapArbitrary.withSizeDistribution(distribution);
 		return clone;
 	}
 
 	@Override
 	protected Arbitrary<U> arbitrary() {
-		// Using list of generated Map.Entry does not work because of potential duplicate keys
-		final Arbitrary<List<K>> keySets = this.keysArbitrary.set().ofMinSize(this.minSize).ofMaxSize(this.maxSize)
-				.map(List::ofAll);
-		return keySets.flatMap(keys -> this.valuesArbitrary.list().ofSize(keys.size())
-				.map(values -> convertTupleListToVavrMap(keys.zip(values))));
+		return javaMapArbitrary.map(this::convertJavaMapToVavrMap);
 	}
 
-	protected abstract U convertTupleListToVavrMap(List<Tuple2<K, V>> tuple2List);
+	protected abstract U convertJavaMapToVavrMap(java.util.Map<K, V> javaMap);
 
 	@Override
 	public MapArbitrary<K, V, U> uniqueKeys(final Function<K, Object> by) {
 		final MapBasedArbitrary<K, V, U> clone = typedClone();
-		clone.keyUniquenessExtractors = new HashSet<>(this.keyUniquenessExtractors);
-		clone.keyUniquenessExtractors.add(by::apply);
+		clone.javaMapArbitrary = javaMapArbitrary.uniqueKeys(by);
 		return clone;
 	}
 
 	@Override
 	public MapArbitrary<K, V, U> uniqueValues(final Function<V, Object> by) {
 		final MapBasedArbitrary<K, V, U> clone = typedClone();
-		clone.valueUniquenessExtractors = new HashSet<>(this.valueUniquenessExtractors);
-		clone.valueUniquenessExtractors.add(by::apply);
+		clone.javaMapArbitrary = javaMapArbitrary.uniqueValues(by);
 		return clone;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public MapArbitrary<K, V, U> uniqueValues() {
-		return uniqueValues(FeatureExtractor.identity());
+		return uniqueValues((Function<V, Object>) Function.identity());
 	}
 
 }

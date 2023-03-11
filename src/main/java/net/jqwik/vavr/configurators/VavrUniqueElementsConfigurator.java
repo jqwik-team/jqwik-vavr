@@ -2,6 +2,7 @@ package net.jqwik.vavr.configurators;
 
 import java.util.function.Function;
 
+import io.vavr.collection.Set;
 import io.vavr.collection.Traversable;
 
 import net.jqwik.api.Arbitrary;
@@ -9,6 +10,7 @@ import net.jqwik.api.configurators.ArbitraryConfigurator;
 import net.jqwik.api.constraints.UniqueElements;
 import net.jqwik.api.providers.TypeUsage;
 import net.jqwik.vavr.arbitraries.base.ListBasedVavrArbitrary;
+import net.jqwik.vavr.arbitraries.base.SetBasedArbitrary;
 
 // TODO: Should be redundant as soon as jqwik provides an interface for
 //  arbitraries that can have unique values.
@@ -22,8 +24,17 @@ public class VavrUniqueElementsConfigurator implements ArbitraryConfigurator {
 			if (arbitrary instanceof ListBasedVavrArbitrary) {
 				return (Arbitrary<T>) configureListArbitrary((ListBasedVavrArbitrary<?, ?>) arbitrary, uniqueness);
 			}
+			if (arbitrary instanceof SetBasedArbitrary) {
+				return (Arbitrary<T>) configureSetArbitrary((SetBasedArbitrary<?, ?>) arbitrary, uniqueness);
+			}
 			return arbitrary;
 		}).orElse(arbitrary);
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T, U extends Set<T>> Arbitrary<U> configureSetArbitrary(SetBasedArbitrary<T, U> arbitrary, UniqueElements uniqueness) {
+		Function<T, Object> extractor = (Function<T, Object>) extractor(uniqueness);
+		return arbitrary.uniqueElements(extractor);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -35,7 +46,7 @@ public class VavrUniqueElementsConfigurator implements ArbitraryConfigurator {
 	private static Function<?, Object> extractor(final UniqueElements uniqueness) {
 		final Class<? extends Function<?, Object>> extractorClass = uniqueness.by();
 			if (extractorClass.equals(UniqueElements.NOT_SET.class)) return Function.identity();
-			throw new IllegalArgumentException("Vavr collections do not support UniqueElements.by functions");
+			throw new IllegalArgumentException("Vavr types do not support UniqueElements.by");
 	}
 
 }

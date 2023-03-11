@@ -27,21 +27,21 @@ public abstract class ListBasedVavrArbitrary<T, U extends Traversable<T>> extend
 	}
 
 	@Override
-	public StreamableArbitrary<T, U> ofMinSize(final int minSize) {
+	public ListBasedVavrArbitrary<T, U> ofMinSize(final int minSize) {
 		final ListBasedVavrArbitrary<T, U> clone = typedClone();
 		clone.listArbitrary = listArbitrary.ofMinSize(minSize);
 		return clone;
 	}
 
 	@Override
-	public StreamableArbitrary<T, U> ofMaxSize(final int maxSize) {
+	public ListBasedVavrArbitrary<T, U> ofMaxSize(final int maxSize) {
 		final ListBasedVavrArbitrary<T, U> clone = typedClone();
 		clone.listArbitrary = listArbitrary.ofMaxSize(maxSize);
 		return clone;
 	}
 
 	@Override
-	public StreamableArbitrary<T, U> withSizeDistribution(final RandomDistribution distribution) {
+	public ListBasedVavrArbitrary<T, U> withSizeDistribution(final RandomDistribution distribution) {
 		final ListBasedVavrArbitrary<T, U> clone = typedClone();
 		clone.listArbitrary = listArbitrary.withSizeDistribution(distribution);
 		return clone;

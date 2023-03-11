@@ -64,17 +64,18 @@
 
         <dependency>
             <groupId>net.jqwik</groupId>
-            <artifactId>jqwik</artifactId>
+            <artifactId>jqwik-api</artifactId>
             <version>${jqwik.version}</version>
         </dependency>
+
+        <!-- Test -->
         <dependency>
             <groupId>net.jqwik</groupId>
             <artifactId>jqwik-engine</artifactId>
             <version>${jqwik.version}</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
 
-        <!-- Test -->
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>

@@ -12,8 +12,6 @@ import net.jqwik.vavr.api.arbitraries.MapArbitrary;
 import java.util.function.Function;
 
 /**
- * @see net.jqwik.engine.properties.arbitraries.DefaultMapArbitrary
- *
  * @param <K> Key type
  * @param <V> Value type
  * @param <U> Map type

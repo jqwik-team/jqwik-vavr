@@ -34,14 +34,14 @@ version = jqwikVavrVersion
 description = "Jqwik Vavr support module"
 
 dependencies {
-    api("net.jqwik:jqwik:${jqwikVersion}")
+    api("net.jqwik:jqwik-api:${jqwikVersion}")
 
-    implementation("net.jqwik:jqwik-engine:${jqwikVersion}")
     implementation("io.vavr:vavr:${vavrVersion}")
 
     testImplementation("org.hamcrest:hamcrest:${hamcrestVersion}")
+    testRuntimeOnly("net.jqwik:jqwik-engine:${jqwikVersion}")
 
-    // Only needed to work around intelliJ bug with running tests in package
+    // Only needed to work around intelliJ bug with running all tests in package
     testImplementation("org.junit.platform:junit-platform-launcher:${junitPlatformVersion}")
 }
 

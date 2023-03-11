@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.is;
 class VavrTreeSetArbitraryTest extends VavrTraversableArbitraryTestBase<TreeSet<Integer>, TreeSet<Boolean>> {
 
     @Override
-    protected StreamableArbitrary<Integer, ? extends TreeSet<Integer>> createCollectionArbtitrary(
+    protected StreamableArbitrary<Integer, ? extends TreeSet<Integer>> createCollectionArbitrary(
             final Arbitrary<Integer> elementArbitrary) {
         return VavrArbitraries.treeSet(elementArbitrary);
     }

@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.is;
 class VavrLinkedHashSetArbitraryTest extends VavrTraversableArbitraryTestBase<LinkedHashSet<Integer>, LinkedHashSet<Boolean>> {
 
     @Override
-    protected StreamableArbitrary<Integer, ? extends LinkedHashSet<Integer>> createCollectionArbtitrary(
+    protected StreamableArbitrary<Integer, ? extends LinkedHashSet<Integer>> createCollectionArbitrary(
             final Arbitrary<Integer> elementArbitrary) {
         return VavrArbitraries.linkedHashSet(elementArbitrary);
     }

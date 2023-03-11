@@ -10,17 +10,13 @@ import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.arbitraries.StreamableArbitrary;
 
-import java.util.Collection;
-
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 
 class VavrIteratorArbitraryTest extends VavrTraversableArbitraryTestBase<Iterator<Integer>, Iterator<Boolean>> {
 
     @Override
-    protected StreamableArbitrary<Integer, ? extends Iterator<Integer>> createCollectionArbtitrary(
+    protected StreamableArbitrary<Integer, ? extends Iterator<Integer>> createCollectionArbitrary(
             final Arbitrary<Integer> elementArbitrary) {
         return VavrArbitraries.iterator(elementArbitrary);
     }

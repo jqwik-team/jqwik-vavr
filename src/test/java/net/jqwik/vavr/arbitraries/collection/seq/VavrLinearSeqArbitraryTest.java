@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.is;
 class VavrLinearSeqArbitraryTest extends VavrTraversableArbitraryTestBase<LinearSeq<Integer>, LinearSeq<Boolean>> {
 
     @Override
-    protected StreamableArbitrary<Integer, ? extends LinearSeq<Integer>> createCollectionArbtitrary(
+    protected StreamableArbitrary<Integer, ? extends LinearSeq<Integer>> createCollectionArbitrary(
             final Arbitrary<Integer> elementArbitrary) {
         return VavrArbitraries.linearSeq(elementArbitrary);
     }

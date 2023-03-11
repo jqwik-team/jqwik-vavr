@@ -28,7 +28,7 @@ public abstract class VavrTraversableArbitraryTestBase<
      * @param elementArbitrary
      * @return
      */
-    protected abstract StreamableArbitrary<Integer, ? extends UI> createCollectionArbtitrary(
+    protected abstract StreamableArbitrary<Integer, ? extends UI> createCollectionArbitrary(
             Arbitrary<Integer> elementArbitrary);
 
     /*
@@ -37,7 +37,7 @@ public abstract class VavrTraversableArbitraryTestBase<
 
     @Provide
     Arbitrary<? extends UI> integersMinSize3() {
-        return createCollectionArbtitrary(Arbitraries.integers()).ofMinSize(3);
+        return createCollectionArbitrary(Arbitraries.integers()).ofMinSize(3);
     }
 
     @Property
@@ -77,7 +77,7 @@ public abstract class VavrTraversableArbitraryTestBase<
 	@Provide
 	Arbitrary<Integer> summedUpStreamable() {
 		StreamableArbitrary<Integer, ?> listArbitrary =
-			createCollectionArbtitrary(Arbitraries.integers().between(1, 5)).ofMinSize(1).ofMaxSize(10);
+			createCollectionArbitrary(Arbitraries.integers().between(1, 5)).ofMinSize(1).ofMaxSize(10);
 		return listArbitrary.reduce(0, Integer::sum);
 	}
 

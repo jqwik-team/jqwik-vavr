@@ -17,7 +17,7 @@ static isSnapshotRelease(versionString) {
 ext {
     moduleName = 'net.jqwik.vavr'
     jqwikVavrVersion = '2.1.0-SNAPSHOT'
-    jqwikVersion = '1.6.5'
+    jqwikVersion = '1.7.2'
     junitPlatformVersion = '1.8.2'
     vavrVersion = '0.10.4'
     hamcrestVersion = '2.2'

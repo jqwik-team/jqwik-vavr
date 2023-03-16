@@ -66,10 +66,11 @@ void generateSizableListFrom(@ForAll @From("integersMin3") final io.vavr.collect
 
 ## Version compatibility
 
-| jqwik-vavr | jqwik      | vavr       |
-|:----------:|:----------:|:----------:|
-| 1.0.0      | 1.3.6      | 0.10.3     |
-| 2.0.0      | 1.6.5      | 0.10.4     |
+| jqwik-vavr | jqwik | vavr       |
+|:----------:|:-----:|:----------:|
+|   1.0.0    | 1.3.6 | 0.10.3     |
+|   2.0.0    | 1.6.5 | 0.10.4     |
+|   3.0.0    | 1.7.2 | 0.10.4     |
 
 ## Installation with Maven (Version >= 2.0.0)
 

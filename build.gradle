@@ -18,7 +18,7 @@ ext {
     moduleName = 'net.jqwik.vavr'
     jqwikVavrVersion = '2.1.0-SNAPSHOT'
     jqwikVersion = '1.6.5'
-    junitPlatformVersion = '1.8.2'
+    junitPlatformVersion = '1.9.2'
     vavrVersion = '0.10.4'
     hamcrestVersion = '2.2'
     isSnapshotRelease = isSnapshotRelease(jqwikVavrVersion)
@@ -131,6 +131,6 @@ signing {
 }
 
 wrapper {
-    gradleVersion = '7.4.2'
-    // upgrade with: ./gradlew wrapper --gradle-version 7.4.2
+    gradleVersion = '8.0.2'
+    // upgrade with: ./gradlew wrapper
 }

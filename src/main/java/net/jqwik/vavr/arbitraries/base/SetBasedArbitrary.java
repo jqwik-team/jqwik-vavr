@@ -58,4 +58,9 @@ public abstract class SetBasedArbitrary<T, U extends Set<T>> extends ArbitraryDe
 		return clone;
 	}
 
+	@Override
+	public SetBasedArbitrary<T, U> uniqueElements() {
+		// Set based arbitraries have unique elements by default
+		return this;
+	}
 }

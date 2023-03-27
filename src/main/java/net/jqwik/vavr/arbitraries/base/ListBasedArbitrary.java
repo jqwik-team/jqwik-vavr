@@ -58,4 +58,10 @@ public abstract class ListBasedArbitrary<T, U extends Traversable<T>> extends Ar
 		return clone;
 	}
 
+	@Override
+	public ListBasedArbitrary<T, U> uniqueElements() {
+		final ListBasedArbitrary<T, U> clone = typedClone();
+		clone.listArbitrary = listArbitrary.uniqueElements();
+		return clone;
+	}
 }

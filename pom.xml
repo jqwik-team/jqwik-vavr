@@ -40,7 +40,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <jqwik.version>1.6.5</jqwik.version>
+        <jqwik.version>1.7.3</jqwik.version>
         <vavr.version>0.10.4</vavr.version>
 
         <hamcrest.version>2.2</hamcrest.version>

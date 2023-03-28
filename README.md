@@ -91,7 +91,7 @@ repositories {
 
 dependencies {
   ...  
-  testImplementation("net.jqwik:jqwik-vavr:2.0.0")
+  testImplementation("net.jqwik:jqwik-vavr:3.0.0")
 }
 ```
 
